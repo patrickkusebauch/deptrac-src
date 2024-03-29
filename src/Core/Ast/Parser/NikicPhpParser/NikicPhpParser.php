@@ -7,31 +7,20 @@ namespace Qossmic\Deptrac\Core\Ast\Parser\NikicPhpParser;
 use PhpParser\Error;
 use PhpParser\ErrorHandler\Throwing;
 use PhpParser\Node;
-use PhpParser\Node\Identifier;
-use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\NodeTraverser;
-use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\Parser;
 use Qossmic\Deptrac\Contract\Ast\CouldNotParseFileException;
-use Qossmic\Deptrac\Core\Ast\AstMap\ClassLike\ClassLikeReference;
 use Qossmic\Deptrac\Core\Ast\AstMap\File\FileReference;
 use Qossmic\Deptrac\Core\Ast\AstMap\File\FileReferenceBuilder;
+use Qossmic\Deptrac\Core\Ast\Parser\AbstractParser;
 use Qossmic\Deptrac\Core\Ast\Parser\Cache\AstFileReferenceCacheInterface;
 use Qossmic\Deptrac\Core\Ast\Parser\Extractors\ReferenceExtractorInterface;
-use Qossmic\Deptrac\Core\Ast\Parser\ParserInterface;
 use Qossmic\Deptrac\Supportive\File\Exception\CouldNotReadFileException;
 use Qossmic\Deptrac\Supportive\File\FileReader;
 
-class NikicPhpParser implements ParserInterface
+class NikicPhpParser extends AbstractParser
 {
-    /**
-     * @var array<string, ClassLike>
-     */
-    private static array $classAstMap = [];
-
-    private readonly NodeTraverser $traverser;
-
     /**
      * @param ReferenceExtractorInterface<\PhpParser\Node>[] $extractors
      */
@@ -64,54 +53,11 @@ class NikicPhpParser implements ParserInterface
     }
 
     /**
-     * @throws CouldNotParseFileException
-     */
-    public function getNodeForClassLikeReference(ClassLikeReference $classReference): ?ClassLike
-    {
-        $classLikeName = $classReference->getToken()->toString();
-
-        if (isset(self::$classAstMap[$classLikeName])) {
-            return self::$classAstMap[$classLikeName];
-        }
-
-        $filepath = $classReference->getFilepath();
-
-        if (null === $filepath) {
-            return null;
-        }
-
-        $visitor = new FindingVisitor(static fn (Node $node): bool => $node instanceof ClassLike);
-        $nodes = $this->loadNodesFromFile($filepath);
-        $this->traverser->addVisitor($visitor);
-        $this->traverser->traverse($nodes);
-        $this->traverser->removeVisitor($visitor);
-
-        /** @var ClassLike[] $classLikeNodes */
-        $classLikeNodes = $visitor->getFoundNodes();
-
-        foreach ($classLikeNodes as $classLikeNode) {
-            if (isset($classLikeNode->namespacedName)) {
-                $namespacedName = $classLikeNode->namespacedName;
-                $className = $namespacedName->toCodeString();
-            } elseif ($classLikeNode->name instanceof Identifier) {
-                $className = $classLikeNode->name->toString();
-            } else {
-                continue;
-            }
-
-            self::$classAstMap[$className] = $classLikeNode;
-        }
-
-        /** @psalm-var ?ClassLike */
-        return self::$classAstMap[$classLikeName] ?? null;
-    }
-
-    /**
      * @return array<Node>
      *
      * @throws CouldNotParseFileException
      */
-    private function loadNodesFromFile(string $filepath): array
+    protected function loadNodesFromFile(string $filepath): array
     {
         try {
             $fileContents = FileReader::read($filepath);
