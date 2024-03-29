@@ -85,17 +85,19 @@ class FileReferenceVisitor extends NodeVisitorAbstract
     private function enterClassLike(ClassLike $node): void
     {
         $name = $this->getReferenceName($node);
-        assert(null !== $name);
-        $context = ScopeContext::create($this->file)->enterClass($this->reflectionProvider->getClass($name));
-        $this->scope = $this->scopeFactory->create($context);
-        $tags = $this->getTags($node);
+        if (null !== $name) {
+            $context = ScopeContext::create($this->file)
+                ->enterClass($this->reflectionProvider->getClass($name));
+            $this->scope = $this->scopeFactory->create($context);
+            $tags = $this->getTags($node);
 
-        $this->currentReference = match (true) {
-            $node instanceof Interface_ => $this->fileReferenceBuilder->newInterface($name, [], $tags),
-            $node instanceof Class_ => $this->fileReferenceBuilder->newClass($name, [], $tags),
-            $node instanceof Trait_ => $this->fileReferenceBuilder->newTrait($name, [], $tags),
-            default => $this->fileReferenceBuilder->newClassLike($name, [], $tags)
-        };
+            $this->currentReference = match (true) {
+                $node instanceof Interface_ => $this->fileReferenceBuilder->newInterface($name, [], $tags),
+                $node instanceof Class_ => $this->fileReferenceBuilder->newClass($name, [], $tags),
+                $node instanceof Trait_ => $this->fileReferenceBuilder->newTrait($name, [], $tags),
+                default => $this->fileReferenceBuilder->newClassLike($name, [], $tags)
+            };
+        }
     }
 
     private function enterFunction(Node\Stmt\Function_ $node): void

@@ -51,7 +51,7 @@ final class ClassDocBlockExtractorTest extends TestCase
     public static function createParser(): array
     {
         $typeResolver = new NikicTypeResolver();
-        $phpStanContainer = new PhpStanContainerDecorator('', []);
+        $phpStanContainer = new PhpStanContainerDecorator(__DIR__, __DIR__, []);
         $extractors = [
             new ClassLikeExtractor($phpStanContainer, new PhpStanTypeResolver(), $typeResolver),
         ];

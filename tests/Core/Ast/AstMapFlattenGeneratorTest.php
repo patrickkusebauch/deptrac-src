@@ -329,7 +329,7 @@ final class AstMapFlattenGeneratorTest extends TestCase
 
     public static function createPhpStanParser(string $filePath): PhpStanParser
     {
-        $phpStanContainer = new PhpStanContainerDecorator(__DIR__, [$filePath]);
+        $phpStanContainer = new PhpStanContainerDecorator(__DIR__, __DIR__, [$filePath]);
 
         $cache = new AstFileReferenceInMemoryCache();
         $extractors = [

@@ -138,7 +138,8 @@ return static function (ContainerConfigurator $container): void {
     $services
         ->set(PhpStanContainerDecorator::class)
         ->args([
-            '$basePath' => param('projectDirectory'),
+            '$projectDirectory' => param('projectDirectory'),
+            '$cwd' => param('currentWorkingDirectory'),
             '$paths' => param('paths'),
         ]);
 

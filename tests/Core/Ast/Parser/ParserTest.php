@@ -137,7 +137,7 @@ final class ParserTest extends TestCase
     public static function createPhpStanParser(string $filePath): PhpStanParser
     {
         $typeResolver = new NikicTypeResolver();
-        $phpStanContainer = new PhpStanContainerDecorator(__DIR__, [$filePath]);
+        $phpStanContainer = new PhpStanContainerDecorator(__DIR__, __DIR__, [$filePath]);
 
         $cache = new AstFileReferenceInMemoryCache();
         $extractors = [
@@ -151,7 +151,7 @@ final class ParserTest extends TestCase
     public static function createNikicParser(string $filePath): NikicPhpParser
     {
         $typeResolver = new NikicTypeResolver();
-        $phpStanContainer = new PhpStanContainerDecorator(__DIR__, [$filePath]);
+        $phpStanContainer = new PhpStanContainerDecorator(__DIR__, __DIR__, [$filePath]);
 
         $cache = new AstFileReferenceInMemoryCache();
         $extractors = [

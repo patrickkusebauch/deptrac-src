@@ -40,7 +40,7 @@ trait EmitterTrait
 
         $nikicTypeResolver = new NikicTypeResolver();
         $phpstanTypeResolver = new PhpStanTypeResolver();
-        $phpStanConstructorDecorator = new PhpStanContainerDecorator('', []);
+        $phpStanConstructorDecorator = new PhpStanContainerDecorator(__DIR__, __DIR__, []);
         $parser = new NikicPhpParser(
             (new ParserFactory())->create(ParserFactory::ONLY_PHP7, new Lexer()),
             new AstFileReferenceInMemoryCache(),

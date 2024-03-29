@@ -61,8 +61,9 @@ class FunctionLikeExtractor implements ReferenceExtractorInterface
         }
 
         $returnType = $node->getReturnType();
-        if ($returnType instanceof Node\Name) {
-            $referenceBuilder->returnType($scope->resolveName($returnType), $returnType->getLine());
+        foreach ($this->phpStanTypeResolver->resolveType($returnType, $scope) as $item) {
+            assert(null !== $returnType);
+            $referenceBuilder->returnType($item, $returnType->getLine());
         }
     }
 

@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace Tests\Qossmic\Deptrac\Core\Ast\Parser;
 
+use Closure;
 use PhpParser\Lexer;
 use PhpParser\ParserFactory;
 use PHPUnit\Framework\TestCase;
 use Qossmic\Deptrac\Core\Ast\AstMap\ClassLike\ClassLikeReference;
 use Qossmic\Deptrac\Core\Ast\AstMap\DependencyToken;
 use Qossmic\Deptrac\Core\Ast\Parser\Cache\AstFileReferenceInMemoryCache;
-use Qossmic\Deptrac\Core\Ast\Parser\Extractors\ClassLikeExtractor;
 use Qossmic\Deptrac\Core\Ast\Parser\Extractors\FunctionLikeExtractor;
-use Qossmic\Deptrac\Core\Ast\Parser\Extractors\UseExtractor;
 use Qossmic\Deptrac\Core\Ast\Parser\NikicPhpParser\NikicPhpParser;
 use Qossmic\Deptrac\Core\Ast\Parser\NikicPhpParser\NikicTypeResolver;
 use Qossmic\Deptrac\Core\Ast\Parser\ParserInterface;
@@ -25,7 +24,7 @@ final class FunctionLikeExtractorTest extends TestCase
     /**
      * @dataProvider createParser
      */
-    public function testPropertyDependencyResolving(\Closure $parserBuilder): void
+    public function testPropertyDependencyResolving(Closure $parserBuilder): void
     {
         $filePath = __DIR__.'/Fixtures/MethodSignatures.php';
         $parser = $parserBuilder($filePath);
@@ -89,7 +88,7 @@ final class FunctionLikeExtractorTest extends TestCase
     public static function createPhpStanParser(string $filePath): PhpStanParser
     {
         $typeResolver = new NikicTypeResolver();
-        $phpStanContainer = new PhpStanContainerDecorator(__DIR__, [$filePath]);
+        $phpStanContainer = new PhpStanContainerDecorator(__DIR__, __DIR__, [$filePath]);
 
         $cache = new AstFileReferenceInMemoryCache();
         $extractors = [

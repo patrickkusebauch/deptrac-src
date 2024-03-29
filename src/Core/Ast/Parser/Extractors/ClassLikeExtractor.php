@@ -133,7 +133,6 @@ class ClassLikeExtractor implements ReferenceExtractorInterface
         }
 
         foreach ($resolvedPhpDoc->getPropertyTags() as $propertyTag) {
-
             $referencedClasses = array_merge(
                 $propertyTag->getReadableType()?->getReferencedClasses() ?? [],
                 $propertyTag->getWritableType()?->getReferencedClasses() ?? [],
