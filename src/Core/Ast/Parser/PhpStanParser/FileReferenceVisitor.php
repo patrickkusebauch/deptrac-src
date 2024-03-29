@@ -86,9 +86,11 @@ class FileReferenceVisitor extends NodeVisitorAbstract
     {
         $name = $this->getReferenceName($node);
         if (null !== $name) {
-            $context = ScopeContext::create($this->file)
-                ->enterClass($this->reflectionProvider->getClass($name));
-            $this->scope = $this->scopeFactory->create($context);
+            if (!$node instanceof Trait_) {
+                $context = ScopeContext::create($this->file)
+                    ->enterClass($this->reflectionProvider->getClass($name));
+                $this->scope = $this->scopeFactory->create($context);
+            }
             $tags = $this->getTags($node);
 
             $this->currentReference = match (true) {
