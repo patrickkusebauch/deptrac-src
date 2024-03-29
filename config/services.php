@@ -27,6 +27,7 @@ use Qossmic\Deptrac\Core\Ast\AstLoader;
 use Qossmic\Deptrac\Core\Ast\AstMapExtractor;
 use Qossmic\Deptrac\Core\Ast\Parser\Cache\AstFileReferenceCacheInterface;
 use Qossmic\Deptrac\Core\Ast\Parser\Cache\AstFileReferenceInMemoryCache;
+use Qossmic\Deptrac\Core\Ast\Parser\DelegatingParser;
 use Qossmic\Deptrac\Core\Ast\Parser\Extractors\AnonymousClassExtractor;
 use Qossmic\Deptrac\Core\Ast\Parser\Extractors\CatchExtractor;
 use Qossmic\Deptrac\Core\Ast\Parser\Extractors\ClassConstantExtractor;
@@ -189,7 +190,12 @@ return static function (ContainerConfigurator $container): void {
         ->args([
             '$extractors' => tagged_iterator('reference_extractors'),
         ]);
-    $services->alias(ParserInterface::class, PhpStanParser::class);
+    $services
+        ->set(DelegatingParser::class)
+        ->args([
+            '$featureFlags' => param('feature_flags'),
+        ]);
+    $services->alias(ParserInterface::class, DelegatingParser::class);
     $services->set(NikicTypeResolver::class);
     $services->set(PhpStanTypeResolver::class);
     $services

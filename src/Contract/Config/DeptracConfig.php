@@ -29,6 +29,9 @@ final class DeptracConfig implements ConfigBuilderInterface
 
     private ?string $cacheFile = null;
 
+    private ?FeatureFlagsConfig $featureFlags = null;
+
+
     /**
      * @deprecated use analyser(AnalyserConfig::create()) instead
      */
@@ -114,6 +117,14 @@ final class DeptracConfig implements ConfigBuilderInterface
         return $this;
     }
 
+    public function featureFlags(FeatureFlagsConfig $featureFlags): self
+    {
+        $this->featureFlags = $featureFlags;
+
+        return $this;
+    }
+
+
     /** @return array<mixed> */
     public function toArray(): array
     {
@@ -149,6 +160,10 @@ final class DeptracConfig implements ConfigBuilderInterface
 
         $config['ignore_uncovered_internal_classes'] = $this->ignoreUncoveredInternalClasses;
         $config['cache_file'] = $this->cacheFile;
+
+        if ($this->featureFlags) {
+            $config['feature_flags'] = $this->featureFlags->toArray();
+        }
 
         return $config;
     }

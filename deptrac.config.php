@@ -7,6 +7,7 @@ use Qossmic\Deptrac\Contract\Config\Collector\ComposerConfig;
 use Qossmic\Deptrac\Contract\Config\Collector\DirectoryConfig;
 use Qossmic\Deptrac\Contract\Config\DeptracConfig;
 use Qossmic\Deptrac\Contract\Config\EmitterType;
+use Qossmic\Deptrac\Contract\Config\FeatureFlagsConfig;
 use Qossmic\Deptrac\Contract\Config\Formatter\GraphvizConfig;
 use Qossmic\Deptrac\Contract\Config\Formatter\MermaidJsConfig;
 use Qossmic\Deptrac\Contract\Config\Layer;
@@ -21,9 +22,10 @@ return static function (DeptracConfig $config, ContainerConfigurator $containerC
     $config
         ->paths('src')
         ->cacheFile('.cache/deptrac.cache')
+        ->featureFlags(FeatureFlagsConfig::create(phpstanParser: true))
         ->analyser(
             AnalyserConfig::create()
-                ->internalTag( '@internal' )
+                ->internalTag('@internal')
                 ->types(
                     EmitterType::CLASS_TOKEN,
                     EmitterType::CLASS_SUPERGLOBAL_TOKEN,
