@@ -6,7 +6,6 @@ namespace Qossmic\Deptrac\Contract\Config;
 
 final class FeatureFlagsConfig
 {
-
     private bool $phpstanParser = false;
 
     private function __construct() {}

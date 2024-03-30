@@ -31,7 +31,6 @@ final class DeptracConfig implements ConfigBuilderInterface
 
     private ?FeatureFlagsConfig $featureFlags = null;
 
-
     /**
      * @deprecated use analyser(AnalyserConfig::create()) instead
      */
@@ -123,7 +122,6 @@ final class DeptracConfig implements ConfigBuilderInterface
 
         return $this;
     }
-
 
     /** @return array<mixed> */
     public function toArray(): array
