@@ -73,6 +73,25 @@ deptrac:
 </td>
 </tr>
 <tr>
+<td>feature_flags.phpstan_parser</td>
+<td>
+
+Enable **experimental** parsing of code using PHPStan parser instead of the default
+Nikic parser. This should result in more detailed dependency analysis and resolution
+between code.
+
+</td>
+<td>
+
+```yaml
+deptrac:
+  feature_flags:
+    phpstan_parser: true
+```
+
+</td>
+</tr>
+<tr>
 <td>paths</td>
 <td>
 
@@ -199,7 +218,7 @@ deptrac:
 </td>
 </tr>
 <tr>
-<td>deptrac.layers</td>
+<td>layers</td>
 <td>
 
 Defines your architectural layers by collecting dependencies using collectors
@@ -222,7 +241,7 @@ deptrac:
 </tr>
 <tr>
 
-<td>deptrac.ruleset</td>
+<td>ruleset</td>
 <td>
 
 Assign communication rules by specifying which layers a layer can
@@ -245,7 +264,7 @@ deptrac:
 </tr>
 <tr>
 
-<td>deptrac.skip_violations</td>
+<td>skip_violations</td>
 <td>
 
 Define a dictionary of dependencies and their known violations.
