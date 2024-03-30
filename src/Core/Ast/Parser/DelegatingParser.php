@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Qossmic\Deptrac\Core\Ast\Parser;
 
+use PhpParser\NodeTraverser;
 use Qossmic\Deptrac\Core\Ast\AstMap\File\FileReference;
 use Qossmic\Deptrac\Core\Ast\Parser\NikicPhpParser\NikicPhpParser;
 use Qossmic\Deptrac\Core\Ast\Parser\PhpStanParser\PhpStanParser;
@@ -17,7 +18,9 @@ final class DelegatingParser extends AbstractParser
         private readonly array $featureFlags,
         private readonly NikicPhpParser $nikicPhpParser,
         private readonly PhpStanParser $phpStanParser,
-    ) {}
+    ) {
+        $this->traverser = new NodeTraverser();
+    }
 
     protected function loadNodesFromFile(string $filepath): array
     {

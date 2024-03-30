@@ -78,6 +78,7 @@ jobs:
       matrix:
         os: [ubuntu-22.04]
         php-version: [8.1, 8.2, 8.3]
+        phpstan_parser: [true, false]
 
     steps:
       - name: "Checkout"
@@ -107,6 +108,16 @@ jobs:
 
       - name: "Install dependencies with composer"
         run: make composer-install
+
+      - name: Configure PhpStan Parser in 'deptrac.yaml'
+        if: matrix.phpstan_parser == 'false'
+        run: |
+          sed -i 's/phpstan_parser: true/phpstan_parser: false/' deptrac.yaml
+
+      - name: Configure PhpStan Parser in 'deptrac.config.php'
+        if: matrix.phpstan_parser == 'false'
+        run: |
+          sed -i 's/phpstanParser: true/phpstanParser: false/' deptrac.config.php
 
       - name: "Run deptrac"
         run: make deptrac
