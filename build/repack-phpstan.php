@@ -21,7 +21,7 @@ $phar->extractTo($tempDir, null, true);
 applyScoping($tempDir, $prefix);
 
 // Repackage the scoped files into a new PHAR
-repackagePhar($tempDir, $phpstanPharPath);
+repackagePhar($tempDir, __DIR__.'/deptrac-build/phpstan.phar');
 
 // Clean up the temporary directory
 cleanup($tempDir);

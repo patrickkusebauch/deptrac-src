@@ -3,7 +3,8 @@
   "files": [
     "config/cache.php",
     "config/services.php",
-    "config/deptrac_template.yaml"
+    "config/deptrac_template.yaml",
+    "build/deptrac-build/phpstan.phar"
   ],
   "compression": "GZ",
   "main": "bin/deptrac",
@@ -18,7 +19,8 @@
       "exclude": [
         "examples",
         "test",
-        "tests"
+        "tests",
+        "phpstan/phpstan"
       ]
     }
   ]
