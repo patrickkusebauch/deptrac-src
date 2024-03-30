@@ -14,8 +14,9 @@ help: ## Displays list of available targets with their descriptions
 
 
 .PHONY: build
-build: tests ## Runs tests and creates the phar-binary
-	$(BOX_BIN) compile
+build: ## Creates the phar-binary
+	$(PHP_BIN) build/repack-phpstan.php
+	$(BOX_BIN) compile --no-parallel
 
 .PHONY: composer-install
 composer-install: ## Installs dependencies
