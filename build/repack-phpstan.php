@@ -36,7 +36,7 @@ function applyScoping(string $directory, string $prefix): void
 
     foreach ($finder as $file) {
         $contents = file_get_contents($file->getRealPath());
-        $scopedContents = preg_replace('/^namespace\s+(.+?);/m', 'namespace '.$prefix.'$1;', $contents);
+        $scopedContents = preg_replace('/^namespace\s+(.+?);/m', 'namespace '.$prefix.'\\\\$1;', $contents);
         file_put_contents($file->getRealPath(), $scopedContents);
     }
 }
