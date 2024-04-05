@@ -38,6 +38,7 @@ return [
     'exclude-namespaces' => [
         'Qossmic\Deptrac',
         'Symfony\Polyfill',
+        '#^PHPStan#',
     ],
     'expose-functions' => ['trigger_deprecation'],
     'expose-global-constants' => false,

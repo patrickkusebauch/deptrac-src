@@ -3,8 +3,7 @@
   "files": [
     "config/cache.php",
     "config/services.php",
-    "config/deptrac_template.yaml",
-    "build/deptrac-build/phpstan.phar"
+    "config/deptrac_template.yaml"
   ],
   "compression": "GZ",
   "main": "bin/deptrac",
@@ -14,7 +13,7 @@
   ],
   "finder": [
     {
-      "in": ["src", "vendor"],
+      "in": ["src", "vendor", "build"],
       "notPath": "#jetbrains/phpstorm-stubs/.*/.*\\.php#",
       "exclude": [
         "examples",

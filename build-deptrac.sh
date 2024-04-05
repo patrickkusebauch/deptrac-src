@@ -36,7 +36,7 @@ info "Copy package templates"
 cp -R $BUILD_DIR/template/* *.md mkdocs.yml docs -t $BUILD_TMP
 
 info "Copy build into deptrac distrubtion repository"
-cp -a $BUILD_TMP/. $DEPTRAC_DIR 
+cp -a $BUILD_TMP/. $DEPTRAC_DIR
 
 # info "Git commit changes"
 # echo "Update $(date)" > git_commit_message.txt

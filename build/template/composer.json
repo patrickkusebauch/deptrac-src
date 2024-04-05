@@ -4,6 +4,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "phpstan/phpstan": "^1.6.8",
         "ext-json": "*"
     },
     "bin": [
@@ -18,7 +19,8 @@
             "Qossmic\\Deptrac\\": "src/"
         },
         "files": [
-            "bootstrap.php"
+            "bootstrap.php",
+            "deptrac-build/phpstan/preload.php"
         ]
     }
 }

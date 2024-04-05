@@ -14,8 +14,7 @@ help: ## Displays list of available targets with their descriptions
 
 
 .PHONY: build
-build: ## Creates the phar-binary
-	$(PHP_BIN) build/repack-phpstan.php
+build: composer-install ## Creates the phar-binary
 	$(BOX_BIN) compile --no-parallel
 
 .PHONY: composer-install
