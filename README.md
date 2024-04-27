@@ -52,6 +52,11 @@ In order to run Deptrac you need at least PHP 8.1.
 You can analyse projects that require an older PHP version as long as
 [nikic/php-parser](https://github.com/nikic/PHP-Parser) can parse it.
 
+
+## How to Contribute
+
+See the [contribution guide](docs/CONTRIBUTING.md) or go to development repository [qossmic/deptrac-src](https://github.com/qossmic/deptrac-src).
+
 ## Further Documentation
 
 * [Backwards Compatibility](docs/bc_policy.md) - General info on how we approach
