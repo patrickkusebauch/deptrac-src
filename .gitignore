@@ -1,6 +1,7 @@
 vendor/*
+tools/**/vendor/*
+tools/**/bin/*
 coverage/*
-tools/
 .box_dump/
 /deptrac.phar
 /deptrac.phar.asc
