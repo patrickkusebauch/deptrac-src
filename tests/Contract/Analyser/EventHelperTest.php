@@ -7,6 +7,7 @@ namespace Tests\Qossmic\Deptrac\Contract\Analyser;
 use PHPUnit\Framework\TestCase;
 use Qossmic\Deptrac\Contract\Analyser\EventHelper;
 use Qossmic\Deptrac\Contract\Layer\LayerProvider;
+use Qossmic\Deptrac\Contract\OutputFormatter\BaselineMapperInterface;
 use Qossmic\Deptrac\Core\Ast\AstMap\ClassLike\ClassLikeToken;
 
 final class EventHelperTest extends TestCase
@@ -24,7 +25,22 @@ final class EventHelperTest extends TestCase
                 'DependencyClass2',
             ],
         ];
-        $helper = new EventHelper($configuration, new LayerProvider([]));
+
+        $baselineMapper = new class($configuration) implements BaselineMapperInterface {
+            public function __construct(private readonly array $violations) {}
+
+            public function fromPHPListToString(array $groupedViolations): string
+            {
+                return '';
+            }
+
+            public function loadViolations(): array
+            {
+                return $this->violations;
+            }
+        };
+
+        $helper = new EventHelper(new LayerProvider([]), $baselineMapper);
 
         self::assertTrue(
             $helper->shouldViolationBeSkipped(
@@ -78,7 +94,22 @@ final class EventHelperTest extends TestCase
                 'DependencyClass2',
             ],
         ];
-        $helper = new EventHelper($configuration, new LayerProvider([]));
+
+        $baselineMapper = new class($configuration) implements BaselineMapperInterface {
+            public function __construct(private readonly array $violations) {}
+
+            public function fromPHPListToString(array $groupedViolations): string
+            {
+                return '';
+            }
+
+            public function loadViolations(): array
+            {
+                return $this->violations;
+            }
+        };
+
+        $helper = new EventHelper(new LayerProvider([]), $baselineMapper);
 
         self::assertTrue(
             $helper->shouldViolationBeSkipped(

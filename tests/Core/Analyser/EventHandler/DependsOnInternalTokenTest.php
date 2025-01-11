@@ -17,6 +17,7 @@ use Qossmic\Deptrac\Core\Ast\AstMap\ClassLike\ClassLikeReference;
 use Qossmic\Deptrac\Core\Ast\AstMap\ClassLike\ClassLikeToken;
 use Qossmic\Deptrac\Core\Ast\AstMap\ClassLike\ClassLikeType;
 use Qossmic\Deptrac\Core\Dependency\Dependency;
+use Qossmic\Deptrac\Supportive\OutputFormatter\YamlBaselineMapper;
 
 final class DependsOnInternalTokenTest extends TestCase
 {
@@ -56,7 +57,7 @@ final class DependsOnInternalTokenTest extends TestCase
 
     public function testInvoke(): void
     {
-        $helper = new EventHelper([], new LayerProvider([]));
+        $helper = new EventHelper(new LayerProvider([]), new YamlBaselineMapper([]));
         $handler = new DependsOnInternalToken($helper, ['internal_tag' => '@layer-internal']);
 
         $event = $this->makeEvent([], []);
@@ -103,7 +104,7 @@ final class DependsOnInternalTokenTest extends TestCase
 
     public function testDefaultInternalTag(): void
     {
-        $helper = new EventHelper([], new LayerProvider([]));
+        $helper = new EventHelper(new LayerProvider([]), new YamlBaselineMapper([]));
         $handler = new DependsOnInternalToken($helper, ['internal_tag' => null]);
 
         $event = $this->makeEvent([], ['@internal' => ['']]);

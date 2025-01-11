@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Qossmic\Deptrac\Contract\Analyser;
 
 use Qossmic\Deptrac\Contract\Layer\LayerProvider;
+use Qossmic\Deptrac\Contract\OutputFormatter\BaselineMapperInterface;
 use Qossmic\Deptrac\Contract\Result\SkippedViolation;
 use Qossmic\Deptrac\Contract\Result\Violation;
 
@@ -19,13 +20,16 @@ final class EventHelper
     private array $unmatchedSkippedViolation;
 
     /**
-     * @param array<string, list<string>> $skippedViolations
+     * @var array<string, list<string>>
      */
+    private readonly array $skippedViolations;
+
     public function __construct(
-        private readonly array $skippedViolations,
         public readonly LayerProvider $layerProvider,
+        private readonly BaselineMapperInterface $baselineMapper,
     ) {
-        $this->unmatchedSkippedViolation = $skippedViolations;
+        $this->skippedViolations = $this->baselineMapper->loadViolations();
+        $this->unmatchedSkippedViolation = $this->skippedViolations;
     }
 
     /**

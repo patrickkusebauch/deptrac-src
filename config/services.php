@@ -10,6 +10,7 @@ use Qossmic\Deptrac\Contract\Analyser\EventHelper;
 use Qossmic\Deptrac\Contract\Config\CollectorType;
 use Qossmic\Deptrac\Contract\Config\EmitterType;
 use Qossmic\Deptrac\Contract\Layer\LayerProvider;
+use Qossmic\Deptrac\Contract\OutputFormatter\BaselineMapperInterface;
 use Qossmic\Deptrac\Core\Analyser\DependencyLayersAnalyser;
 use Qossmic\Deptrac\Core\Analyser\EventHandler\AllowDependencyHandler;
 use Qossmic\Deptrac\Core\Analyser\EventHandler\DependsOnDisallowedLayer;
@@ -109,6 +110,7 @@ use Qossmic\Deptrac\Supportive\OutputFormatter\JUnitOutputFormatter;
 use Qossmic\Deptrac\Supportive\OutputFormatter\MermaidJSOutputFormatter;
 use Qossmic\Deptrac\Supportive\OutputFormatter\TableOutputFormatter;
 use Qossmic\Deptrac\Supportive\OutputFormatter\XMLOutputFormatter;
+use Qossmic\Deptrac\Supportive\OutputFormatter\YamlBaselineMapper;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
@@ -404,11 +406,13 @@ return static function (ContainerConfigurator $container): void {
         ->set(UnmatchedSkippedViolations::class)
         ->tag('kernel.event_subscriber')
     ;
-    $services->set(EventHelper::class)
+    $services->set(YamlBaselineMapper::class)
         ->args([
             '$skippedViolations' => param('skip_violations'),
         ])
     ;
+    $services->alias(BaselineMapperInterface::class, YamlBaselineMapper::class);
+    $services->set(EventHelper::class);
     $services
         ->set(DependencyLayersAnalyser::class)
     ;
