@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Qossmic\Deptrac\Core\Layer\Collector;
 
-use Qossmic\Deptrac\Contract\Ast\TaggedTokenReferenceInterface;
-use Qossmic\Deptrac\Contract\Ast\TokenReferenceInterface;
+use Qossmic\Deptrac\Contract\Ast\AstMap\TaggedTokenReferenceInterface;
+use Qossmic\Deptrac\Contract\Ast\AstMap\TokenReferenceInterface;
 use Qossmic\Deptrac\Contract\Layer\InvalidCollectorDefinitionException;
 
 final class TagValueRegexCollector extends RegexCollector

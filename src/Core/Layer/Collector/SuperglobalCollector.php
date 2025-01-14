@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Qossmic\Deptrac\Core\Layer\Collector;
 
-use Qossmic\Deptrac\Contract\Ast\TokenReferenceInterface;
+use Qossmic\Deptrac\Contract\Ast\AstMap\TokenReferenceInterface;
+use Qossmic\Deptrac\Contract\Ast\AstMap\VariableReference;
 use Qossmic\Deptrac\Contract\Layer\CollectorInterface;
 use Qossmic\Deptrac\Contract\Layer\InvalidCollectorDefinitionException;
-use Qossmic\Deptrac\Core\Ast\AstMap\Variable\VariableReference;
 
 final class SuperglobalCollector implements CollectorInterface
 {

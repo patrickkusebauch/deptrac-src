@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Qossmic\Deptrac\Core\Dependency\Emitter;
 
-use Qossmic\Deptrac\Contract\Ast\DependencyType;
+use Qossmic\Deptrac\Contract\Ast\AstMap\DependencyType;
 use Qossmic\Deptrac\Core\Ast\AstMap\AstMap;
 use Qossmic\Deptrac\Core\Dependency\Dependency;
 use Qossmic\Deptrac\Core\Dependency\DependencyList;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\Deptrac\Contract\Ast;
+namespace Qossmic\Deptrac\Contract\Ast\AstMap;
 
 /**
  * Represents the AST-Token, its location, and associated tags.

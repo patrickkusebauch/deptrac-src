@@ -6,9 +6,9 @@ namespace Tests\Qossmic\Deptrac\Contract\Analyser;
 
 use PHPUnit\Framework\TestCase;
 use Qossmic\Deptrac\Contract\Analyser\EventHelper;
+use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeToken;
 use Qossmic\Deptrac\Contract\Layer\LayerProvider;
 use Qossmic\Deptrac\Contract\OutputFormatter\BaselineMapperInterface;
-use Qossmic\Deptrac\Core\Ast\AstMap\ClassLike\ClassLikeToken;
 
 final class EventHelperTest extends TestCase
 {

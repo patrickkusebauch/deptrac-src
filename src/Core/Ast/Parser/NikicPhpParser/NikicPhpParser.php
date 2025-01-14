@@ -13,13 +13,13 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\Parser;
+use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeReference;
+use Qossmic\Deptrac\Contract\Ast\AstMap\FileReference;
 use Qossmic\Deptrac\Contract\Ast\CouldNotParseFileException;
-use Qossmic\Deptrac\Core\Ast\AstMap\ClassLike\ClassLikeReference;
-use Qossmic\Deptrac\Core\Ast\AstMap\File\FileReference;
-use Qossmic\Deptrac\Core\Ast\AstMap\File\FileReferenceBuilder;
+use Qossmic\Deptrac\Contract\Ast\ParserInterface;
+use Qossmic\Deptrac\Core\Ast\AstMap\FileReferenceBuilder;
 use Qossmic\Deptrac\Core\Ast\Parser\Cache\AstFileReferenceCacheInterface;
 use Qossmic\Deptrac\Core\Ast\Parser\Extractors\ReferenceExtractorInterface;
-use Qossmic\Deptrac\Core\Ast\Parser\ParserInterface;
 use Qossmic\Deptrac\Core\Ast\Parser\TypeResolver;
 use Qossmic\Deptrac\Supportive\File\Exception\CouldNotReadFileException;
 use Qossmic\Deptrac\Supportive\File\FileReader;
@@ -27,7 +27,7 @@ use Qossmic\Deptrac\Supportive\File\FileReader;
 class NikicPhpParser implements ParserInterface
 {
     /**
-     * @var array<string, ClassLike>
+     * @var array<string, list<string>>
      */
     private static array $classAstMap = [];
 
@@ -68,7 +68,7 @@ class NikicPhpParser implements ParserInterface
     /**
      * @throws CouldNotParseFileException
      */
-    public function getNodeForClassLikeReference(ClassLikeReference $classReference): ?ClassLike
+    public function getMethodNamesForClassLikeReference(ClassLikeReference $classReference): array
     {
         $classLikeName = $classReference->getToken()->toString();
 
@@ -79,7 +79,7 @@ class NikicPhpParser implements ParserInterface
         $filepath = $classReference->getFilepath();
 
         if (null === $filepath) {
-            return null;
+            return [];
         }
 
         $visitor = new FindingVisitor(static fn (Node $node): bool => $node instanceof ClassLike);
@@ -101,11 +101,14 @@ class NikicPhpParser implements ParserInterface
                 continue;
             }
 
-            self::$classAstMap[$className] = $classLikeNode;
+            self::$classAstMap[$className] = array_map(
+                static fn (Node\Stmt\ClassMethod $method): string => (string) $method->name,
+                array_values($classLikeNode->getMethods())
+            );
         }
 
-        /** @psalm-var ?ClassLike */
-        return self::$classAstMap[$classLikeName] ?? null;
+        /** @psalm-var list<string> */
+        return self::$classAstMap[$classLikeName] ?? [];
     }
 
     /**

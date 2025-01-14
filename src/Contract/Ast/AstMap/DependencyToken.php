@@ -2,15 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\Deptrac\Core\Ast\AstMap;
-
-use Qossmic\Deptrac\Contract\Ast\DependencyContext;
-use Qossmic\Deptrac\Contract\Ast\TokenInterface;
+namespace Qossmic\Deptrac\Contract\Ast\AstMap;
 
 /**
  * @psalm-immutable
  */
-class DependencyToken
+final class DependencyToken
 {
     public function __construct(
         public readonly TokenInterface $token,

@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\Deptrac\Core\Ast\AstMap\Function;
+namespace Qossmic\Deptrac\Core\Ast\AstMap;
 
-use Qossmic\Deptrac\Core\Ast\AstMap\ReferenceBuilder;
+use Qossmic\Deptrac\Contract\Ast\AstMap\FunctionReference;
+use Qossmic\Deptrac\Contract\Ast\AstMap\FunctionToken;
 
 class FunctionReferenceBuilder extends ReferenceBuilder
 {

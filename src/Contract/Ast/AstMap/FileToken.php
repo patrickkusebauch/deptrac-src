@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\Deptrac\Core\Ast\AstMap\File;
+namespace Qossmic\Deptrac\Contract\Ast\AstMap;
 
-use Qossmic\Deptrac\Contract\Ast\TokenInterface;
 use Symfony\Component\Filesystem\Path;
 
 final class FileToken implements TokenInterface

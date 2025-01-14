@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\Deptrac\Core\Ast\AstMap\Variable;
-
-use Qossmic\Deptrac\Contract\Ast\TokenInterface;
+namespace Qossmic\Deptrac\Contract\Ast\AstMap;
 
 enum SuperGlobalToken: string implements TokenInterface
 {

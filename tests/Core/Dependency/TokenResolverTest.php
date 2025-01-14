@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace Tests\Qossmic\Deptrac\Core\Dependency;
 
 use PHPUnit\Framework\TestCase;
+use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeReference;
+use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeToken;
+use Qossmic\Deptrac\Contract\Ast\AstMap\FileReference;
+use Qossmic\Deptrac\Contract\Ast\AstMap\FileToken;
+use Qossmic\Deptrac\Contract\Ast\AstMap\FunctionReference;
+use Qossmic\Deptrac\Contract\Ast\AstMap\FunctionToken;
+use Qossmic\Deptrac\Contract\Ast\AstMap\SuperGlobalToken;
+use Qossmic\Deptrac\Contract\Ast\AstMap\VariableReference;
 use Qossmic\Deptrac\Core\Ast\AstMap\AstMap;
-use Qossmic\Deptrac\Core\Ast\AstMap\ClassLike\ClassLikeReference;
-use Qossmic\Deptrac\Core\Ast\AstMap\ClassLike\ClassLikeToken;
-use Qossmic\Deptrac\Core\Ast\AstMap\File\FileReference;
-use Qossmic\Deptrac\Core\Ast\AstMap\File\FileToken;
-use Qossmic\Deptrac\Core\Ast\AstMap\Function\FunctionReference;
-use Qossmic\Deptrac\Core\Ast\AstMap\Function\FunctionToken;
-use Qossmic\Deptrac\Core\Ast\AstMap\Variable\SuperGlobalToken;
-use Qossmic\Deptrac\Core\Ast\AstMap\Variable\VariableReference;
 use Qossmic\Deptrac\Core\Dependency\TokenResolver;
 
 final class TokenResolverTest extends TestCase

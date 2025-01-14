@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\Deptrac\Core\Ast\AstMap\ClassLike;
+namespace Qossmic\Deptrac\Contract\Ast\AstMap;
 
-use Qossmic\Deptrac\Contract\Ast\TokenInterface;
-
+/**
+ * @psalm-immutable
+ */
 final class ClassLikeToken implements TokenInterface
 {
     private function __construct(private readonly string $className) {}

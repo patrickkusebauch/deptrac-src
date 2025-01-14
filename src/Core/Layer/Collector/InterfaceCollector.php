@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Qossmic\Deptrac\Core\Layer\Collector;
 
-use Qossmic\Deptrac\Core\Ast\AstMap\ClassLike\ClassLikeType;
+use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeType;
 
 class InterfaceCollector extends AbstractTypeCollector
 {

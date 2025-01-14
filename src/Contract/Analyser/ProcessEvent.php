@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Qossmic\Deptrac\Contract\Analyser;
 
-use Qossmic\Deptrac\Contract\Ast\TokenReferenceInterface;
+use Qossmic\Deptrac\Contract\Ast\AstMap\TokenReferenceInterface;
 use Qossmic\Deptrac\Contract\Dependency\DependencyInterface;
 use Symfony\Contracts\EventDispatcher\Event;
 

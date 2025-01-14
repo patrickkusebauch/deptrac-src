@@ -2,17 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\Deptrac\Core\Ast\AstMap\Function;
-
-use Qossmic\Deptrac\Contract\Ast\TokenInterface;
-use Qossmic\Deptrac\Core\Ast\AstMap\DependencyToken;
-use Qossmic\Deptrac\Core\Ast\AstMap\File\FileReference;
-use Qossmic\Deptrac\Core\Ast\AstMap\TaggedTokenReference;
+namespace Qossmic\Deptrac\Contract\Ast\AstMap;
 
 /**
  * @psalm-immutable
  */
-class FunctionReference extends TaggedTokenReference
+final class FunctionReference extends TaggedTokenReference
 {
     /**
      * @param DependencyToken[] $dependencies

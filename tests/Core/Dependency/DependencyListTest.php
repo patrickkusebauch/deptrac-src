@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Tests\Qossmic\Deptrac\Core\Dependency;
 
 use PHPUnit\Framework\TestCase;
-use Qossmic\Deptrac\Contract\Ast\DependencyContext;
-use Qossmic\Deptrac\Contract\Ast\DependencyType;
-use Qossmic\Deptrac\Contract\Ast\FileOccurrence;
-use Qossmic\Deptrac\Core\Ast\AstMap\AstInherit;
-use Qossmic\Deptrac\Core\Ast\AstMap\AstInheritType;
-use Qossmic\Deptrac\Core\Ast\AstMap\ClassLike\ClassLikeToken;
+use Qossmic\Deptrac\Contract\Ast\AstMap\AstInherit;
+use Qossmic\Deptrac\Contract\Ast\AstMap\AstInheritType;
+use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeToken;
+use Qossmic\Deptrac\Contract\Ast\AstMap\DependencyContext;
+use Qossmic\Deptrac\Contract\Ast\AstMap\DependencyType;
+use Qossmic\Deptrac\Contract\Ast\AstMap\FileOccurrence;
 use Qossmic\Deptrac\Core\Dependency\Dependency;
 use Qossmic\Deptrac\Core\Dependency\DependencyList;
 use Qossmic\Deptrac\Core\Dependency\InheritDependency;

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Qossmic\Deptrac\Contract\Dependency;
 
-use Qossmic\Deptrac\Contract\Ast\DependencyContext;
-use Qossmic\Deptrac\Contract\Ast\TokenInterface;
+use Qossmic\Deptrac\Contract\Ast\AstMap\DependencyContext;
+use Qossmic\Deptrac\Contract\Ast\AstMap\TokenInterface;
 
 /**
  * Represents a dependency between 2 tokens (depender and dependent).

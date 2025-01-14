@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Qossmic\Deptrac\Core\Dependency\Emitter;
 
-use Qossmic\Deptrac\Contract\Ast\DependencyType;
+use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeReference;
+use Qossmic\Deptrac\Contract\Ast\AstMap\DependencyType;
+use Qossmic\Deptrac\Contract\Ast\AstMap\FileReference;
+use Qossmic\Deptrac\Contract\Ast\AstMap\FunctionReference;
+use Qossmic\Deptrac\Contract\Ast\AstMap\FunctionToken;
 use Qossmic\Deptrac\Core\Ast\AstMap\AstMap;
-use Qossmic\Deptrac\Core\Ast\AstMap\ClassLike\ClassLikeReference;
-use Qossmic\Deptrac\Core\Ast\AstMap\File\FileReference;
-use Qossmic\Deptrac\Core\Ast\AstMap\Function\FunctionReference;
-use Qossmic\Deptrac\Core\Ast\AstMap\Function\FunctionToken;
 use Qossmic\Deptrac\Core\Dependency\Dependency;
 use Qossmic\Deptrac\Core\Dependency\DependencyList;
 

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Qossmic\Deptrac\Core\Ast\Parser\Extractors;
 
 use PhpParser\Node;
+use Qossmic\Deptrac\Contract\Ast\AstMap\SuperGlobalToken;
 use Qossmic\Deptrac\Core\Ast\AstMap\ReferenceBuilder;
-use Qossmic\Deptrac\Core\Ast\AstMap\Variable\SuperGlobalToken;
 use Qossmic\Deptrac\Core\Ast\Parser\TypeScope;
 
 class VariableExtractor implements ReferenceExtractorInterface

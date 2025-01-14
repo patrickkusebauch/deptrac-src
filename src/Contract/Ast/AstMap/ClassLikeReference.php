@@ -2,17 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\Deptrac\Core\Ast\AstMap\ClassLike;
-
-use Qossmic\Deptrac\Core\Ast\AstMap\AstInherit;
-use Qossmic\Deptrac\Core\Ast\AstMap\DependencyToken;
-use Qossmic\Deptrac\Core\Ast\AstMap\File\FileReference;
-use Qossmic\Deptrac\Core\Ast\AstMap\TaggedTokenReference;
+namespace Qossmic\Deptrac\Contract\Ast\AstMap;
 
 /**
  * @psalm-immutable
  */
-class ClassLikeReference extends TaggedTokenReference
+final class ClassLikeReference extends TaggedTokenReference
 {
     public readonly ClassLikeType $type;
 

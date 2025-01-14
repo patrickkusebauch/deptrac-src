@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\Deptrac\Core\Ast\AstMap\Function;
-
-use Qossmic\Deptrac\Contract\Ast\TokenInterface;
+namespace Qossmic\Deptrac\Contract\Ast\AstMap;
 
 final class FunctionToken implements TokenInterface
 {

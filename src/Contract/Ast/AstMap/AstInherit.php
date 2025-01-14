@@ -2,10 +2,8 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\Deptrac\Core\Ast\AstMap;
+namespace Qossmic\Deptrac\Contract\Ast\AstMap;
 
-use Qossmic\Deptrac\Contract\Ast\FileOccurrence;
-use Qossmic\Deptrac\Core\Ast\AstMap\ClassLike\ClassLikeToken;
 use Stringable;
 
 use function array_reverse;

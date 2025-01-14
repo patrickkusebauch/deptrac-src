@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\Deptrac\Contract\Ast;
+namespace Qossmic\Deptrac\Contract\Ast\AstMap;
 
 /**
  * Specifies the type of AST dependency.

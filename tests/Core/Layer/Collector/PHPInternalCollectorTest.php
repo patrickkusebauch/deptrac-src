@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Tests\Qossmic\Deptrac\Core\Layer\Collector;
 
 use PHPUnit\Framework\TestCase;
-use Qossmic\Deptrac\Contract\Ast\TokenReferenceInterface;
-use Qossmic\Deptrac\Core\Ast\AstMap\ClassLike\ClassLikeReference;
-use Qossmic\Deptrac\Core\Ast\AstMap\ClassLike\ClassLikeToken;
-use Qossmic\Deptrac\Core\Ast\AstMap\Function\FunctionReference;
-use Qossmic\Deptrac\Core\Ast\AstMap\Function\FunctionToken;
+use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeReference;
+use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeToken;
+use Qossmic\Deptrac\Contract\Ast\AstMap\FunctionReference;
+use Qossmic\Deptrac\Contract\Ast\AstMap\FunctionToken;
+use Qossmic\Deptrac\Contract\Ast\AstMap\TokenReferenceInterface;
 use Qossmic\Deptrac\Core\Layer\Collector\PhpInternalCollector;
 
 final class PHPInternalCollectorTest extends TestCase

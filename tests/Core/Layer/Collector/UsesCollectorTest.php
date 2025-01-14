@@ -6,7 +6,7 @@ namespace Tests\Qossmic\Deptrac\Core\Layer\Collector;
 
 use PHPUnit\Framework\TestCase;
 use Qossmic\Deptrac\Core\Ast\AstMap\AstMap;
-use Qossmic\Deptrac\Core\Ast\AstMap\File\FileReferenceBuilder;
+use Qossmic\Deptrac\Core\Ast\AstMap\FileReferenceBuilder;
 use Qossmic\Deptrac\Core\Ast\AstMapExtractor;
 use Qossmic\Deptrac\Core\Layer\Collector\UsesCollector;
 

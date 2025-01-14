@@ -2,15 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\Deptrac\Core\Ast\AstMap\Variable;
-
-use Qossmic\Deptrac\Contract\Ast\TokenInterface;
-use Qossmic\Deptrac\Contract\Ast\TokenReferenceInterface;
+namespace Qossmic\Deptrac\Contract\Ast\AstMap;
 
 /**
  * @psalm-immutable
  */
-class VariableReference implements TokenReferenceInterface
+final class VariableReference implements TokenReferenceInterface
 {
     public function __construct(private readonly SuperGlobalToken $tokenName) {}
 

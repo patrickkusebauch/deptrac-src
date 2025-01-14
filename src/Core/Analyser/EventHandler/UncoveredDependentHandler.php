@@ -6,8 +6,8 @@ namespace Qossmic\Deptrac\Core\Analyser\EventHandler;
 
 use JetBrains\PHPStormStub\PhpStormStubsMap;
 use Qossmic\Deptrac\Contract\Analyser\ProcessEvent;
+use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeToken;
 use Qossmic\Deptrac\Contract\Result\Uncovered;
-use Qossmic\Deptrac\Core\Ast\AstMap\ClassLike\ClassLikeToken;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**

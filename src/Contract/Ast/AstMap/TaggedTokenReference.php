@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\Deptrac\Core\Ast\AstMap;
-
-use Qossmic\Deptrac\Contract\Ast\TaggedTokenReferenceInterface;
+namespace Qossmic\Deptrac\Contract\Ast\AstMap;
 
 /**
  * Helper trait for implementing TaggedTokenReferenceInterface.

@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Tests\Qossmic\Deptrac\Core\Dependency;
 
 use PHPUnit\Framework\TestCase;
-use Qossmic\Deptrac\Contract\Ast\FileOccurrence;
-use Qossmic\Deptrac\Core\Ast\AstMap\AstInherit;
-use Qossmic\Deptrac\Core\Ast\AstMap\AstInheritType;
+use Qossmic\Deptrac\Contract\Ast\AstMap\AstInherit;
+use Qossmic\Deptrac\Contract\Ast\AstMap\AstInheritType;
+use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeReference;
+use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeToken;
+use Qossmic\Deptrac\Contract\Ast\AstMap\FileOccurrence;
 use Qossmic\Deptrac\Core\Ast\AstMap\AstMap;
-use Qossmic\Deptrac\Core\Ast\AstMap\ClassLike\ClassLikeReference;
-use Qossmic\Deptrac\Core\Ast\AstMap\ClassLike\ClassLikeToken;
 use Qossmic\Deptrac\Core\Dependency\Dependency;
 use Qossmic\Deptrac\Core\Dependency\DependencyList;
 use Qossmic\Deptrac\Core\Dependency\InheritanceFlattener;
@@ -20,8 +20,9 @@ final class InheritanceFlattenerTest extends TestCase
 {
     private function getAstClassReference($className)
     {
-        $astClass = $this->createMock(ClassLikeReference::class);
-        $astClass->method('getToken')->willReturn(ClassLikeToken::fromFQCN($className));
+        $classLikeToken = ClassLikeToken::fromFQCN($className);
+        $astClass = new ClassLikeReference($classLikeToken);
+        self::assertSame($classLikeToken, $astClass->getToken());
 
         return $astClass;
     }

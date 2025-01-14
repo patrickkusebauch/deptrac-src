@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\Deptrac\Core\Ast\AstMap\ClassLike;
+namespace Qossmic\Deptrac\Core\Ast\AstMap;
 
-use Qossmic\Deptrac\Contract\Ast\FileOccurrence;
-use Qossmic\Deptrac\Core\Ast\AstMap\AstInherit;
-use Qossmic\Deptrac\Core\Ast\AstMap\AstInheritType;
-use Qossmic\Deptrac\Core\Ast\AstMap\ReferenceBuilder;
+use Qossmic\Deptrac\Contract\Ast\AstMap\AstInherit;
+use Qossmic\Deptrac\Contract\Ast\AstMap\AstInheritType;
+use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeReference;
+use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeToken;
+use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeType;
+use Qossmic\Deptrac\Contract\Ast\AstMap\FileOccurrence;
 
 final class ClassLikeReferenceBuilder extends ReferenceBuilder
 {

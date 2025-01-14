@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Qossmic\Deptrac\Core\Dependency;
 
-use Qossmic\Deptrac\Contract\Ast\TokenInterface;
+use Qossmic\Deptrac\Contract\Ast\AstMap\TokenInterface;
 use Qossmic\Deptrac\Contract\ExceptionInterface;
 use RuntimeException;
 

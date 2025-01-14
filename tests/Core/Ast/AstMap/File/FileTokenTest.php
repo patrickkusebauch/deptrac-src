@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Qossmic\Deptrac\Core\Ast\AstMap\File;
 
 use PHPUnit\Framework\TestCase;
-use Qossmic\Deptrac\Core\Ast\AstMap\File\FileToken;
+use Qossmic\Deptrac\Contract\Ast\AstMap\FileToken;
 
 final class FileTokenTest extends TestCase
 {

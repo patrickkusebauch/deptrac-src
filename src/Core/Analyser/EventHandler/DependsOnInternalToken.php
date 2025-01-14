@@ -7,7 +7,7 @@ namespace Qossmic\Deptrac\Core\Analyser\EventHandler;
 use Qossmic\Deptrac\Contract\Analyser\EventHelper;
 use Qossmic\Deptrac\Contract\Analyser\ProcessEvent;
 use Qossmic\Deptrac\Contract\Analyser\ViolationCreatingInterface;
-use Qossmic\Deptrac\Core\Ast\AstMap\ClassLike\ClassLikeReference;
+use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeReference;
 
 /**
  * @internal

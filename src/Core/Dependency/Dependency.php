@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Qossmic\Deptrac\Core\Dependency;
 
-use Qossmic\Deptrac\Contract\Ast\DependencyContext;
-use Qossmic\Deptrac\Contract\Ast\TokenInterface;
+use Qossmic\Deptrac\Contract\Ast\AstMap\DependencyContext;
+use Qossmic\Deptrac\Contract\Ast\AstMap\TokenInterface;
 use Qossmic\Deptrac\Contract\Dependency\DependencyInterface;
 
 class Dependency implements DependencyInterface

@@ -2,7 +2,7 @@
 
 namespace Qossmic\Deptrac\Core\Ast\Parser\Cache;
 
-use Qossmic\Deptrac\Core\Ast\AstMap\File\FileReference;
+use Qossmic\Deptrac\Contract\Ast\AstMap\FileReference;
 
 interface AstFileReferenceCacheInterface
 {

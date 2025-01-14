@@ -2,18 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\Deptrac\Core\Ast\AstMap\File;
-
-use Qossmic\Deptrac\Contract\Ast\TokenInterface;
-use Qossmic\Deptrac\Contract\Ast\TokenReferenceInterface;
-use Qossmic\Deptrac\Core\Ast\AstMap\ClassLike\ClassLikeReference;
-use Qossmic\Deptrac\Core\Ast\AstMap\DependencyToken;
-use Qossmic\Deptrac\Core\Ast\AstMap\Function\FunctionReference;
+namespace Qossmic\Deptrac\Contract\Ast\AstMap;
 
 /**
  * @psalm-immutable
  */
-class FileReference implements TokenReferenceInterface
+final class FileReference implements TokenReferenceInterface
 {
     /** @var ClassLikeReference[] */
     public readonly array $classLikeReferences;
@@ -44,7 +38,7 @@ class FileReference implements TokenReferenceInterface
         );
     }
 
-    public function getFilepath(): ?string
+    public function getFilepath(): string
     {
         return $this->filepath;
     }
