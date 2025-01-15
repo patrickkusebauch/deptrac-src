@@ -4,34 +4,27 @@ declare(strict_types=1);
 
 namespace Tests\Qossmic\Deptrac\Core\Ast\Parser;
 
+use Closure;
 use PhpParser\Lexer;
 use PhpParser\ParserFactory;
 use PHPUnit\Framework\TestCase;
 use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeReference;
 use Qossmic\Deptrac\Contract\Ast\AstMap\DependencyToken;
+use Qossmic\Deptrac\Contract\Ast\ParserInterface;
 use Qossmic\Deptrac\Core\Ast\Parser\Cache\AstFileReferenceInMemoryCache;
 use Qossmic\Deptrac\Core\Ast\Parser\Extractors\FunctionLikeExtractor;
 use Qossmic\Deptrac\Core\Ast\Parser\NikicPhpParser\NikicPhpParser;
-use Qossmic\Deptrac\Core\Ast\Parser\TypeResolver;
-use Tests\Qossmic\Deptrac\Core\Ast\ArrayAssertionTrait;
+use Qossmic\Deptrac\Core\Ast\Parser\NikicPhpParser\NikicTypeResolver;
 
 final class FunctionLikeExtractorTest extends TestCase
 {
-    use ArrayAssertionTrait;
-
-    public function testPropertyDependencyResolving(): void
+    /**
+     * @dataProvider createParser
+     */
+    public function testPropertyDependencyResolving(Closure $parserBuilder): void
     {
-        $typeResolver = new TypeResolver();
-        $parser = new NikicPhpParser(
-            (new ParserFactory())->create(ParserFactory::ONLY_PHP7, new Lexer()),
-            new AstFileReferenceInMemoryCache(),
-            $typeResolver,
-            [
-                new FunctionLikeExtractor($typeResolver),
-            ]
-        );
-
         $filePath = __DIR__.'/Fixtures/MethodSignatures.php';
+        $parser = $parserBuilder($filePath);
         $astFileReference = $parser->parseFile($filePath);
 
         $astClassReferences = $astFileReference->classLikeReferences;
@@ -39,19 +32,19 @@ final class FunctionLikeExtractorTest extends TestCase
         self::assertCount(3, $astClassReferences);
         [$classA, $classB, $classC] = $astClassReferences;
 
-        self::assertArrayValuesEquals(
+        self::assertEqualsCanonicalizing(
             [],
             $this->getDependenciesAsString($classA)
         );
 
-        self::assertArrayValuesEquals(
+        self::assertEqualsCanonicalizing(
             [
                 'Tests\Qossmic\Deptrac\Core\Ast\Parser\Fixtures\MethodSignaturesA::12 (returntype)',
             ],
             $this->getDependenciesAsString($classB)
         );
 
-        self::assertArrayValuesEquals(
+        self::assertEqualsCanonicalizing(
             [
                 'Tests\Qossmic\Deptrac\Core\Ast\Parser\Fixtures\MethodSignaturesB::21 (parameter)',
                 // NOTE: We are not yet tracking the call from MethodSignatureC::test()
@@ -75,6 +68,33 @@ final class FunctionLikeExtractorTest extends TestCase
                 return "{$dependency->token->toString()}::{$dependency->context->fileOccurrence->line} ({$dependency->context->dependencyType->value})";
             },
             $classReference->dependencies
+        );
+    }
+
+    /**
+     * @return list<array{ParserInterface}>
+     */
+    public static function createParser(): array
+    {
+        return [
+            'Nikic Parser' => [self::createNikicParser(...)],
+        ];
+    }
+
+    public static function createNikicParser(string $filePath): NikicPhpParser
+    {
+        $typeResolver = new NikicTypeResolver();
+
+        $cache = new AstFileReferenceInMemoryCache();
+        $extractors = [
+            new FunctionLikeExtractor($typeResolver),
+        ];
+
+        return new NikicPhpParser(
+            (new ParserFactory())->create(
+                ParserFactory::ONLY_PHP7,
+                new Lexer()
+            ), $cache, $extractors
         );
     }
 }

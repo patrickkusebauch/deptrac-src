@@ -9,10 +9,10 @@ use PHPStan\PhpDocParser\Parser\ConstExprParser;
 use PHPStan\PhpDocParser\Parser\TokenIterator;
 use PHPStan\PhpDocParser\Parser\TypeParser;
 use PHPUnit\Framework\TestCase;
-use Qossmic\Deptrac\Core\Ast\Parser\TypeResolver;
-use Qossmic\Deptrac\Core\Ast\Parser\TypeScope;
+use Qossmic\Deptrac\Contract\Ast\TypeScope;
+use Qossmic\Deptrac\Core\Ast\Parser\NikicPhpParser\NikicTypeResolver;
 
-final class TypeResolverTest extends TestCase
+final class NikicTypeResolverTest extends TestCase
 {
     private Lexer $lexer;
     private TypeParser $typeParser;
@@ -33,7 +33,7 @@ final class TypeResolverTest extends TestCase
         $tokens = new TokenIterator($this->lexer->tokenize($doc));
         $typeNode = $this->typeParser->parse($tokens);
 
-        $typeResolver = new TypeResolver();
+        $typeResolver = new NikicTypeResolver();
         $resolvedTypes = $typeResolver->resolvePHPStanDocParserType($typeNode, new TypeScope('\\Test\\'), ['T']);
 
         self::assertSame($types, $resolvedTypes);

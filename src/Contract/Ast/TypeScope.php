@@ -2,9 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Qossmic\Deptrac\Core\Ast\Parser;
+namespace Qossmic\Deptrac\Contract\Ast;
 
-class TypeScope
+/**
+ * Holds information about currently defined use statements for resolving FQCN
+ */
+final class TypeScope
 {
     /**
      * @var array<string, string> alias => className

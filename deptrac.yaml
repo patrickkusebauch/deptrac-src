@@ -71,8 +71,6 @@ deptrac:
           composerPath: composer.json
           composerLockPath: composer.lock
           packages:
-            - phpstan/phpdoc-parser
-            - nikic/php-parser
             - phpdocumentor/type-resolver
     - name: Console
       collectors:
@@ -90,6 +88,12 @@ deptrac:
       collectors:
         - type: directory
           value: src/Contract/.*
+        - type: composer
+          composerPath: composer.json
+          composerLockPath: composer.lock
+          packages:
+            - phpstan/phpdoc-parser
+            - nikic/php-parser
     - name: InputCollector
       collectors:
         - type: directory

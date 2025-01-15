@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Qossmic\Deptrac\Core\Ast\Parser\Extractors;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\ClassConstFetch;
-use PhpParser\Node\Name;
+use PhpParser\Node\Stmt\GroupUse;
+use PhpParser\Node\Stmt\Use_;
 use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeToken;
 use Qossmic\Deptrac\Contract\Ast\AstMap\DependencyType;
 use Qossmic\Deptrac\Contract\Ast\AstMap\ReferenceBuilderInterface;
@@ -14,21 +14,22 @@ use Qossmic\Deptrac\Contract\Ast\ReferenceExtractorInterface;
 use Qossmic\Deptrac\Contract\Ast\TypeScope;
 
 /**
- * @implements ReferenceExtractorInterface<ClassConstFetch>
+ * @implements ReferenceExtractorInterface<GroupUse>
  */
-class ClassConstantExtractor implements ReferenceExtractorInterface
+class GroupUseExtractor implements ReferenceExtractorInterface
 {
     public function processNode(Node $node, ReferenceBuilderInterface $referenceBuilder, TypeScope $typeScope): void
     {
-        if (!$node->class instanceof Name || $node->class->isSpecialClassName()) {
-            return;
+        foreach ($node->uses as $use) {
+            if (Use_::TYPE_NORMAL === $use->type) {
+                $classLikeName = $node->prefix->toString().'\\'.$use->name->toString();
+                $referenceBuilder->dependency(ClassLikeToken::fromFQCN($classLikeName), $use->name->getLine(), DependencyType::USE);
+            }
         }
-
-        $referenceBuilder->dependency(ClassLikeToken::fromFQCN($node->class->toCodeString()), $node->class->getLine(), DependencyType::CONST);
     }
 
     public function getNodeType(): string
     {
-        return ClassConstFetch::class;
+        return GroupUse::class;
     }
 }

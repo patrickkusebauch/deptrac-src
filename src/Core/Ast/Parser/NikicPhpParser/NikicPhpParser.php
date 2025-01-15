@@ -13,14 +13,13 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\FindingVisitor;
 use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\Parser;
+use Qossmic\Deptrac\Contract\Ast\AstFileReferenceCacheInterface;
 use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeReference;
 use Qossmic\Deptrac\Contract\Ast\AstMap\FileReference;
 use Qossmic\Deptrac\Contract\Ast\CouldNotParseFileException;
 use Qossmic\Deptrac\Contract\Ast\ParserInterface;
+use Qossmic\Deptrac\Contract\Ast\ReferenceExtractorInterface;
 use Qossmic\Deptrac\Core\Ast\AstMap\FileReferenceBuilder;
-use Qossmic\Deptrac\Core\Ast\Parser\Cache\AstFileReferenceCacheInterface;
-use Qossmic\Deptrac\Core\Ast\Parser\Extractors\ReferenceExtractorInterface;
-use Qossmic\Deptrac\Core\Ast\Parser\TypeResolver;
 use Qossmic\Deptrac\Supportive\File\Exception\CouldNotReadFileException;
 use Qossmic\Deptrac\Supportive\File\FileReader;
 
@@ -34,12 +33,11 @@ class NikicPhpParser implements ParserInterface
     private readonly NodeTraverser $traverser;
 
     /**
-     * @param ReferenceExtractorInterface[] $extractors
+     * @param ReferenceExtractorInterface<Node>[] $extractors
      */
     public function __construct(
         private readonly Parser $parser,
         private readonly AstFileReferenceCacheInterface $cache,
-        private readonly TypeResolver $typeResolver,
         private readonly iterable $extractors,
     ) {
         $this->traverser = new NodeTraverser();
@@ -53,7 +51,7 @@ class NikicPhpParser implements ParserInterface
         }
 
         $fileReferenceBuilder = FileReferenceBuilder::create($file);
-        $visitor = new FileReferenceVisitor($fileReferenceBuilder, $this->typeResolver, ...$this->extractors);
+        $visitor = new FileReferenceVisitor($fileReferenceBuilder, ...$this->extractors);
         $nodes = $this->loadNodesFromFile($file);
         $this->traverser->addVisitor($visitor);
         $this->traverser->traverse($nodes);
@@ -116,7 +114,7 @@ class NikicPhpParser implements ParserInterface
      *
      * @throws CouldNotParseFileException
      */
-    private function loadNodesFromFile(string $filepath): array
+    protected function loadNodesFromFile(string $filepath): array
     {
         try {
             $fileContents = FileReader::read($filepath);

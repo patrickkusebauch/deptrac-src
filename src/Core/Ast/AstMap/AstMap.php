@@ -12,6 +12,7 @@ use Qossmic\Deptrac\Contract\Ast\AstMap\FileReference;
 use Qossmic\Deptrac\Contract\Ast\AstMap\FileToken;
 use Qossmic\Deptrac\Contract\Ast\AstMap\FunctionReference;
 use Qossmic\Deptrac\Contract\Ast\AstMap\FunctionToken;
+use Qossmic\Deptrac\Contract\Ast\AstMap\TokenInterface;
 use SplStack;
 
 class AstMap
@@ -65,7 +66,7 @@ class AstMap
         return $this->functionReferences;
     }
 
-    public function getClassReferenceForToken(ClassLikeToken $className): ?ClassLikeReference
+    public function getClassReferenceForToken(TokenInterface $className): ?ClassLikeReference
     {
         return $this->classReferences[$className->toString()] ?? null;
     }

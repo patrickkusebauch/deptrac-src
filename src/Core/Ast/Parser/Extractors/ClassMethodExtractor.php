@@ -6,39 +6,37 @@ namespace Qossmic\Deptrac\Core\Ast\Parser\Extractors;
 
 use PhpParser\Comment\Doc;
 use PhpParser\Node;
-use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Property;
 use PHPStan\PhpDocParser\Ast\PhpDoc\TemplateTagValueNode;
 use PHPStan\PhpDocParser\Lexer\Lexer;
 use PHPStan\PhpDocParser\Parser\ConstExprParser;
 use PHPStan\PhpDocParser\Parser\PhpDocParser;
 use PHPStan\PhpDocParser\Parser\TokenIterator;
 use PHPStan\PhpDocParser\Parser\TypeParser;
-use Qossmic\Deptrac\Core\Ast\AstMap\ReferenceBuilder;
-use Qossmic\Deptrac\Core\Ast\Parser\TypeResolver;
-use Qossmic\Deptrac\Core\Ast\Parser\TypeScope;
+use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeToken;
+use Qossmic\Deptrac\Contract\Ast\AstMap\DependencyType;
+use Qossmic\Deptrac\Contract\Ast\AstMap\ReferenceBuilderInterface;
+use Qossmic\Deptrac\Contract\Ast\ReferenceExtractorInterface;
+use Qossmic\Deptrac\Contract\Ast\TypeResolverInterface;
+use Qossmic\Deptrac\Contract\Ast\TypeScope;
 
-class AnnotationReferenceExtractor implements ReferenceExtractorInterface
+/**
+ * @implements ReferenceExtractorInterface<ClassMethod>
+ */
+class ClassMethodExtractor implements ReferenceExtractorInterface
 {
     private readonly Lexer $lexer;
     private readonly PhpDocParser $docParser;
 
-    public function __construct(private readonly TypeResolver $typeResolver)
-    {
+    public function __construct(
+        private readonly TypeResolverInterface $typeResolver,
+    ) {
         $this->lexer = new Lexer();
         $this->docParser = new PhpDocParser(new TypeParser(), new ConstExprParser());
     }
 
-    public function processNode(Node $node, ReferenceBuilder $referenceBuilder, TypeScope $typeScope): void
+    public function processNode(Node $node, ReferenceBuilderInterface $referenceBuilder, TypeScope $typeScope): void
     {
-        if (!$node instanceof Property
-            && !$node instanceof Variable
-            && !$node instanceof ClassMethod
-        ) {
-            return;
-        }
-
         $docComment = $node->getDocComment();
         if (!$docComment instanceof Doc) {
             return;
@@ -54,19 +52,11 @@ class AnnotationReferenceExtractor implements ReferenceExtractorInterface
             $referenceBuilder->getTokenTemplates()
         );
 
-        foreach ($docNode->getVarTagValues() as $tag) {
-            $types = $this->typeResolver->resolvePHPStanDocParserType($tag->type, $typeScope, $templateTypes);
-
-            foreach ($types as $type) {
-                $referenceBuilder->variable($type, $docComment->getStartLine());
-            }
-        }
-
         foreach ($docNode->getParamTagValues() as $tag) {
             $types = $this->typeResolver->resolvePHPStanDocParserType($tag->type, $typeScope, $templateTypes);
 
             foreach ($types as $type) {
-                $referenceBuilder->parameter($type, $docComment->getStartLine());
+                $referenceBuilder->dependency(ClassLikeToken::fromFQCN($type), $docComment->getStartLine(), DependencyType::PARAMETER);
             }
         }
 
@@ -74,7 +64,7 @@ class AnnotationReferenceExtractor implements ReferenceExtractorInterface
             $types = $this->typeResolver->resolvePHPStanDocParserType($tag->type, $typeScope, $templateTypes);
 
             foreach ($types as $type) {
-                $referenceBuilder->returnType($type, $docComment->getStartLine());
+                $referenceBuilder->dependency(ClassLikeToken::fromFQCN($type), $docComment->getStartLine(), DependencyType::RETURN_TYPE);
             }
         }
 
@@ -82,8 +72,13 @@ class AnnotationReferenceExtractor implements ReferenceExtractorInterface
             $types = $this->typeResolver->resolvePHPStanDocParserType($tag->type, $typeScope, $templateTypes);
 
             foreach ($types as $type) {
-                $referenceBuilder->throwStatement($type, $docComment->getStartLine());
+                $referenceBuilder->dependency(ClassLikeToken::fromFQCN($type), $docComment->getStartLine(), DependencyType::THROW);
             }
         }
+    }
+
+    public function getNodeType(): string
+    {
+        return ClassMethod::class;
     }
 }

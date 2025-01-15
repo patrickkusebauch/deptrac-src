@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Qossmic\Deptrac\Core\Ast\Parser\Cache\AstFileReferenceCacheInterface;
+use Qossmic\Deptrac\Contract\Ast\AstFileReferenceCacheInterface;
 use Qossmic\Deptrac\Core\Ast\Parser\Cache\AstFileReferenceDeferredCacheInterface;
 use Qossmic\Deptrac\Core\Ast\Parser\Cache\AstFileReferenceFileCache;
 use Qossmic\Deptrac\Core\Ast\Parser\Cache\CacheableFileSubscriber;

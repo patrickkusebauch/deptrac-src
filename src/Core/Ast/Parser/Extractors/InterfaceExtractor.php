@@ -5,30 +5,27 @@ declare(strict_types=1);
 namespace Qossmic\Deptrac\Core\Ast\Parser\Extractors;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\ClassConstFetch;
-use PhpParser\Node\Name;
+use PhpParser\Node\Stmt\Interface_;
+use Qossmic\Deptrac\Contract\Ast\AstMap\AstInheritType;
 use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeToken;
-use Qossmic\Deptrac\Contract\Ast\AstMap\DependencyType;
 use Qossmic\Deptrac\Contract\Ast\AstMap\ReferenceBuilderInterface;
 use Qossmic\Deptrac\Contract\Ast\ReferenceExtractorInterface;
 use Qossmic\Deptrac\Contract\Ast\TypeScope;
 
 /**
- * @implements ReferenceExtractorInterface<ClassConstFetch>
+ * @implements ReferenceExtractorInterface<Interface_>
  */
-class ClassConstantExtractor implements ReferenceExtractorInterface
+class InterfaceExtractor implements ReferenceExtractorInterface
 {
     public function processNode(Node $node, ReferenceBuilderInterface $referenceBuilder, TypeScope $typeScope): void
     {
-        if (!$node->class instanceof Name || $node->class->isSpecialClassName()) {
-            return;
+        foreach ($node->extends as $extend) {
+            $referenceBuilder->astInherits(ClassLikeToken::fromFQCN($extend->toCodeString()), $extend->getLine(), AstInheritType::IMPLEMENTS);
         }
-
-        $referenceBuilder->dependency(ClassLikeToken::fromFQCN($node->class->toCodeString()), $node->class->getLine(), DependencyType::CONST);
     }
 
     public function getNodeType(): string
     {
-        return ClassConstFetch::class;
+        return Interface_::class;
     }
 }

@@ -4,18 +4,12 @@ declare(strict_types=1);
 
 namespace Qossmic\Deptrac\Core\Ast\AstMap;
 
-use Qossmic\Deptrac\Contract\Ast\AstMap\AstInherit;
-use Qossmic\Deptrac\Contract\Ast\AstMap\AstInheritType;
 use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeReference;
 use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeToken;
 use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeType;
-use Qossmic\Deptrac\Contract\Ast\AstMap\FileOccurrence;
 
 final class ClassLikeReferenceBuilder extends ReferenceBuilder
 {
-    /** @var AstInherit[] */
-    private array $inherits = [];
-
     /**
      * @param list<string> $tokenTemplates
      * @param array<string,list<string>> $tags
@@ -76,38 +70,5 @@ final class ClassLikeReferenceBuilder extends ReferenceBuilder
             $this->dependencies,
             $this->tags
         );
-    }
-
-    public function extends(string $classLikeName, int $occursAtLine): self
-    {
-        $this->inherits[] = new AstInherit(
-            ClassLikeToken::fromFQCN($classLikeName),
-            new FileOccurrence($this->filepath, $occursAtLine),
-            AstInheritType::EXTENDS
-        );
-
-        return $this;
-    }
-
-    public function implements(string $classLikeName, int $occursAtLine): self
-    {
-        $this->inherits[] = new AstInherit(
-            ClassLikeToken::fromFQCN($classLikeName),
-            new FileOccurrence($this->filepath, $occursAtLine),
-            AstInheritType::IMPLEMENTS
-        );
-
-        return $this;
-    }
-
-    public function trait(string $classLikeName, int $occursAtLine): self
-    {
-        $this->inherits[] = new AstInherit(
-            ClassLikeToken::fromFQCN($classLikeName),
-            new FileOccurrence($this->filepath, $occursAtLine),
-            AstInheritType::USES
-        );
-
-        return $this;
     }
 }
