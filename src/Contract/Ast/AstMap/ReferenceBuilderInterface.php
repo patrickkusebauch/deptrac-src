@@ -7,7 +7,7 @@ namespace Qossmic\Deptrac\Contract\Ast\AstMap;
 use Qossmic\Deptrac\Contract\Ast\ReferenceExtractorInterface;
 
 /**
- * Interface for defining deptrac dependencies inside "Reference Extractors"
+ * Interface for defining deptrac dependencies inside "Reference Extractors".
  *
  * @see ReferenceExtractorInterface
  */

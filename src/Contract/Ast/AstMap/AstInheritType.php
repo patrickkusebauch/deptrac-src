@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Qossmic\Deptrac\Contract\Ast\AstMap;
 
 /**
- * Type of Ast Inheritance between class-likes
+ * Type of Ast Inheritance between class-likes.
  *
  * @see AstInherit
  */

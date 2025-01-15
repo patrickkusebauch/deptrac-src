@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Qossmic\Deptrac\Contract\Ast;
 
 /**
- * Holds information about currently defined use statements for resolving FQCN
+ * Holds information about currently defined use statements for resolving FQCN.
  */
 final class TypeScope
 {

@@ -5,7 +5,7 @@ namespace Qossmic\Deptrac\Contract\Ast;
 use Qossmic\Deptrac\Contract\Ast\AstMap\FileReference;
 
 /**
- * Ast file cache to be used in custom parser implementation
+ * Ast file cache to be used in custom parser implementation.
  *
  * @see ParserInterface
  */
