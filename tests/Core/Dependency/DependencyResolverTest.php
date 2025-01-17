@@ -83,7 +83,7 @@ final class DependencyResolverTest extends TestCase
         $this->expectNotToPerformAssertions();
 
         $astMap = new AstMap([]);
-        
+
         $this->dispatcher->method('dispatch')->willReturnOnConsecutiveCalls(
             new PreEmitEvent('FunctionDependencyEmitter'),
             new PostEmitEvent(),
