@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Qossmic\Deptrac\Contract\Ast\AstMap\SuperGlobalToken;
 use Qossmic\Deptrac\Contract\Ast\AstMap\VariableReference;
 use Qossmic\Deptrac\Contract\Layer\InvalidCollectorDefinitionException;
-use Qossmic\Deptrac\Core\Layer\Collector\SuperglobalCollector;
+use Qossmic\Deptrac\DefaultBehavior\Layer\SuperglobalCollector;
 
 final class SuperglobalCollectorTest extends TestCase
 {

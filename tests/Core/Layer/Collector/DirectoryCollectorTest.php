@@ -6,8 +6,8 @@ namespace Tests\Qossmic\Deptrac\Core\Layer\Collector;
 
 use PHPUnit\Framework\TestCase;
 use Qossmic\Deptrac\Contract\Layer\InvalidCollectorDefinitionException;
-use Qossmic\Deptrac\Core\Ast\AstMap\FileReferenceBuilder;
-use Qossmic\Deptrac\Core\Layer\Collector\DirectoryCollector;
+use Qossmic\Deptrac\DefaultBehavior\Ast\Parser\Helpers\FileReferenceBuilder;
+use Qossmic\Deptrac\DefaultBehavior\Layer\DirectoryCollector;
 
 final class DirectoryCollectorTest extends TestCase
 {

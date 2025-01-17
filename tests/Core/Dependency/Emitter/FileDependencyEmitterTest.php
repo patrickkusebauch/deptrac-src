@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Qossmic\Deptrac\Core\Dependency\Emitter;
 
 use PHPUnit\Framework\TestCase;
-use Qossmic\Deptrac\Core\Dependency\Emitter\FileDependencyEmitter;
+use Qossmic\Deptrac\DefaultBehavior\Dependency\FileDependencyEmitter;
 
 final class FileDependencyEmitterTest extends TestCase
 {

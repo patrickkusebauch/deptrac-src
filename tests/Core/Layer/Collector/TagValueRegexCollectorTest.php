@@ -10,7 +10,7 @@ use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeToken;
 use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeType;
 use Qossmic\Deptrac\Contract\Config\Collector\TagValueRegexConfig;
 use Qossmic\Deptrac\Contract\Layer\InvalidCollectorDefinitionException;
-use Qossmic\Deptrac\Core\Layer\Collector\TagValueRegexCollector;
+use Qossmic\Deptrac\DefaultBehavior\Layer\TagValueRegexCollector;
 
 final class TagValueRegexCollectorTest extends TestCase
 {

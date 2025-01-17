@@ -11,7 +11,6 @@ use Qossmic\Deptrac\Contract\Ast\CouldNotParseFileException;
 use Qossmic\Deptrac\Contract\Ast\ParserInterface;
 use Qossmic\Deptrac\Contract\Ast\PostCreateAstMapEvent;
 use Qossmic\Deptrac\Contract\Ast\PreCreateAstMapEvent;
-use Qossmic\Deptrac\Core\Ast\AstMap\AstMap;
 
 class AstLoader
 {

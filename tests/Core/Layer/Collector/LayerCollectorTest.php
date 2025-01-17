@@ -9,8 +9,8 @@ use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeReference;
 use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeToken;
 use Qossmic\Deptrac\Contract\Layer\InvalidCollectorDefinitionException;
 use Qossmic\Deptrac\Contract\Layer\InvalidLayerDefinitionException;
-use Qossmic\Deptrac\Core\Layer\Collector\LayerCollector;
-use Qossmic\Deptrac\Core\Layer\LayerResolverInterface;
+use Qossmic\Deptrac\Contract\Layer\LayerResolverInterface;
+use Qossmic\Deptrac\DefaultBehavior\Layer\LayerCollector;
 
 final class LayerCollectorTest extends TestCase
 {

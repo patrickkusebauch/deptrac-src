@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tests\Qossmic\Deptrac\Core\Layer\Collector;
 
 use PHPUnit\Framework\TestCase;
-use Qossmic\Deptrac\Core\Ast\AstMap\FileReferenceBuilder;
-use Qossmic\Deptrac\Core\Layer\Collector\GlobCollector;
+use Qossmic\Deptrac\DefaultBehavior\Ast\Parser\Helpers\FileReferenceBuilder;
+use Qossmic\Deptrac\DefaultBehavior\Layer\GlobCollector;
 
 final class GlobCollectorTest extends TestCase
 {

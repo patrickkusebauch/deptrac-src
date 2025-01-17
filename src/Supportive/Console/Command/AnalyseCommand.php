@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Qossmic\Deptrac\Supportive\Console\Command;
 
+use Qossmic\Deptrac\DefaultBehavior\OutputFormatter\GithubActionsOutputFormatter;
+use Qossmic\Deptrac\DefaultBehavior\OutputFormatter\TableOutputFormatter;
 use Qossmic\Deptrac\Supportive\Console\Env;
 use Qossmic\Deptrac\Supportive\Console\Subscriber\ConsoleSubscriber;
 use Qossmic\Deptrac\Supportive\Console\Subscriber\ProgressSubscriber;
 use Qossmic\Deptrac\Supportive\Console\Symfony\Style;
 use Qossmic\Deptrac\Supportive\Console\Symfony\SymfonyOutput;
 use Qossmic\Deptrac\Supportive\OutputFormatter\FormatterProvider;
-use Qossmic\Deptrac\Supportive\OutputFormatter\GithubActionsOutputFormatter;
-use Qossmic\Deptrac\Supportive\OutputFormatter\TableOutputFormatter;
 use Qossmic\Deptrac\Supportive\Time\Stopwatch;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

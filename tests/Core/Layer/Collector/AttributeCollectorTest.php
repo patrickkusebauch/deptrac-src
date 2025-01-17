@@ -7,8 +7,8 @@ namespace Tests\Qossmic\Deptrac\Core\Layer\Collector;
 use PHPUnit\Framework\TestCase;
 use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeToken;
 use Qossmic\Deptrac\Contract\Ast\AstMap\DependencyType;
-use Qossmic\Deptrac\Core\Ast\AstMap\FileReferenceBuilder;
-use Qossmic\Deptrac\Core\Layer\Collector\AttributeCollector;
+use Qossmic\Deptrac\DefaultBehavior\Ast\Parser\Helpers\FileReferenceBuilder;
+use Qossmic\Deptrac\DefaultBehavior\Layer\AttributeCollector;
 
 final class AttributeCollectorTest extends TestCase
 {

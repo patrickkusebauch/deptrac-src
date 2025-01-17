@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeReference;
 use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeToken;
 use Qossmic\Deptrac\Contract\Layer\InvalidCollectorDefinitionException;
-use Qossmic\Deptrac\Core\Layer\Collector\ClassNameRegexCollector;
+use Qossmic\Deptrac\DefaultBehavior\Layer\ClassNameRegexCollector;
 
 final class ClassNameRegexCollectorTest extends TestCase
 {

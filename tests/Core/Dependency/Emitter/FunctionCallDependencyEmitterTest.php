@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Qossmic\Deptrac\Core\Dependency\Emitter;
 
 use PHPUnit\Framework\TestCase;
-use Qossmic\Deptrac\Core\Dependency\Emitter\FunctionCallDependencyEmitter;
+use Qossmic\Deptrac\DefaultBehavior\Dependency\FunctionCallDependencyEmitter;
 
 final class FunctionCallDependencyEmitterTest extends TestCase
 {

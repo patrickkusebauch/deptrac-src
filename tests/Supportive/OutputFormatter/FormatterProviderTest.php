@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Tests\Qossmic\Deptrac\Supportive\OutputFormatter;
 
 use PHPUnit\Framework\TestCase;
+use Qossmic\Deptrac\DefaultBehavior\OutputFormatter\ConsoleOutputFormatter;
+use Qossmic\Deptrac\DefaultBehavior\OutputFormatter\TableOutputFormatter;
 use Qossmic\Deptrac\Supportive\DependencyInjection\Exception\InvalidServiceInLocatorException;
-use Qossmic\Deptrac\Supportive\OutputFormatter\ConsoleOutputFormatter;
 use Qossmic\Deptrac\Supportive\OutputFormatter\FormatterProvider;
-use Qossmic\Deptrac\Supportive\OutputFormatter\TableOutputFormatter;
 use stdClass;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 use Symfony\Component\DependencyInjection\ServiceLocator;

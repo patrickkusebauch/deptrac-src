@@ -9,7 +9,7 @@ use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeReference;
 use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeToken;
 use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeType;
 use Qossmic\Deptrac\Contract\Layer\InvalidCollectorDefinitionException;
-use Qossmic\Deptrac\Core\Layer\Collector\InterfaceCollector;
+use Qossmic\Deptrac\DefaultBehavior\Layer\InterfaceCollector;
 
 final class InterfaceCollectorTest extends TestCase
 {

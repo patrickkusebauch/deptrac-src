@@ -7,10 +7,10 @@ namespace Tests\Qossmic\Deptrac\Core\Layer\Collector;
 use PHPUnit\Framework\TestCase;
 use Qossmic\Deptrac\Contract\Ast\AstMap\AstInheritType;
 use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeToken;
-use Qossmic\Deptrac\Core\Ast\AstMap\AstMap;
-use Qossmic\Deptrac\Core\Ast\AstMap\FileReferenceBuilder;
+use Qossmic\Deptrac\Core\Ast\AstMap;
 use Qossmic\Deptrac\Core\Ast\AstMapExtractor;
-use Qossmic\Deptrac\Core\Layer\Collector\UsesCollector;
+use Qossmic\Deptrac\DefaultBehavior\Ast\Parser\Helpers\FileReferenceBuilder;
+use Qossmic\Deptrac\DefaultBehavior\Layer\UsesCollector;
 
 final class UsesCollectorTest extends TestCase
 {

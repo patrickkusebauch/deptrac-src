@@ -3,6 +3,9 @@ services:
     tags:
      - { name: kernel.event_subscriber }
 
+imports:
+  - deptrac.baseline.yaml
+
 deptrac:
   paths:
     - ./src
@@ -58,6 +61,17 @@ deptrac:
 
   layers:
     # Domains
+    - name: DefaultBehavior
+      collectors:
+        - type: directory
+          value: src/DefaultBehavior/.*
+    - name: Graphviz
+      collectors:
+        - type: composer
+          composerPath: composer.json
+          composerLockPath: composer.lock
+          packages:
+            - phpdocumentor/graphviz
     - name: Analyser
       collectors:
         - type: directory
@@ -106,12 +120,6 @@ deptrac:
       collectors:
         - type: directory
           value: src/Supportive/OutputFormatter/.*
-        - type: composer
-          private: true
-          composerPath: composer.json
-          composerLockPath: composer.lock
-          packages:
-            - phpdocumentor/graphviz
     - name: File
       collectors:
         - type: directory
@@ -177,3 +185,6 @@ deptrac:
       - Symfony
     File:
       - Symfony
+    DefaultBehavior:
+      - Symfony
+      - Graphiz

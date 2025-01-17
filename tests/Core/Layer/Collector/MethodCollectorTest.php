@@ -8,8 +8,8 @@ use PHPUnit\Framework\TestCase;
 use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeReference;
 use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeToken;
 use Qossmic\Deptrac\Contract\Layer\InvalidCollectorDefinitionException;
-use Qossmic\Deptrac\Core\Ast\Parser\NikicPhpParser\NikicPhpParser;
-use Qossmic\Deptrac\Core\Layer\Collector\MethodCollector;
+use Qossmic\Deptrac\DefaultBehavior\Ast\Parser\NikicPhpParser;
+use Qossmic\Deptrac\DefaultBehavior\Layer\MethodCollector;
 
 final class MethodCollectorTest extends TestCase
 {

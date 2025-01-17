@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Qossmic\Deptrac\Contract\Ast\AstMap\FunctionReference;
 use Qossmic\Deptrac\Contract\Ast\AstMap\FunctionToken;
 use Qossmic\Deptrac\Contract\Layer\InvalidCollectorDefinitionException;
-use Qossmic\Deptrac\Core\Layer\Collector\FunctionNameCollector;
+use Qossmic\Deptrac\DefaultBehavior\Layer\FunctionNameCollector;
 
 final class FunctionNameCollectorTest extends TestCase
 {

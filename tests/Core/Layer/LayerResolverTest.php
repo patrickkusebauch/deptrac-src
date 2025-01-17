@@ -7,10 +7,10 @@ namespace Tests\Qossmic\Deptrac\Core\Layer;
 use PHPUnit\Framework\TestCase;
 use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeReference;
 use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeToken;
+use Qossmic\Deptrac\Contract\Layer\Collectable;
 use Qossmic\Deptrac\Contract\Layer\CollectorInterface;
+use Qossmic\Deptrac\Contract\Layer\CollectorResolverInterface;
 use Qossmic\Deptrac\Contract\Layer\InvalidLayerDefinitionException;
-use Qossmic\Deptrac\Core\Layer\Collector\Collectable;
-use Qossmic\Deptrac\Core\Layer\Collector\CollectorResolverInterface;
 use Qossmic\Deptrac\Core\Layer\LayerResolver;
 
 final class LayerResolverTest extends TestCase

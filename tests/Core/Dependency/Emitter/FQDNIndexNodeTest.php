@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Qossmic\Deptrac\Core\Dependency\Emitter;
 
 use PHPUnit\Framework\TestCase;
-use Qossmic\Deptrac\Core\Dependency\Emitter\FQDNIndexNode;
+use Qossmic\Deptrac\DefaultBehavior\Dependency\Helpers\FQDNIndexNode;
 
 use function array_slice;
 use function explode;

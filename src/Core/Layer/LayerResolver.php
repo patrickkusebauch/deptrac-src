@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Qossmic\Deptrac\Core\Layer;
 
 use Qossmic\Deptrac\Contract\Ast\AstMap\TokenReferenceInterface;
+use Qossmic\Deptrac\Contract\Layer\Collectable;
+use Qossmic\Deptrac\Contract\Layer\CollectorResolverInterface;
 use Qossmic\Deptrac\Contract\Layer\InvalidLayerDefinitionException;
-use Qossmic\Deptrac\Core\Layer\Collector\Collectable;
-use Qossmic\Deptrac\Core\Layer\Collector\CollectorResolverInterface;
+use Qossmic\Deptrac\Contract\Layer\LayerResolverInterface;
 
 use function array_key_exists;
 

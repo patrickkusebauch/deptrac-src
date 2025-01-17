@@ -11,8 +11,8 @@ use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeToken;
 use Qossmic\Deptrac\Contract\Ast\AstMap\DependencyContext;
 use Qossmic\Deptrac\Contract\Ast\AstMap\DependencyType;
 use Qossmic\Deptrac\Contract\Ast\AstMap\FileOccurrence;
-use Qossmic\Deptrac\Core\Dependency\Dependency;
 use Qossmic\Deptrac\Core\Dependency\InheritDependency;
+use Qossmic\Deptrac\DefaultBehavior\Dependency\Helpers\Dependency;
 
 final class InheritDependencyTest extends TestCase
 {

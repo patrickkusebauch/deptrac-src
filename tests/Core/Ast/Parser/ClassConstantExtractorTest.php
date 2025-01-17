@@ -10,8 +10,8 @@ use PhpParser\ParserFactory;
 use PHPUnit\Framework\TestCase;
 use Qossmic\Deptrac\Contract\Ast\ParserInterface;
 use Qossmic\Deptrac\Core\Ast\Parser\Cache\AstFileReferenceInMemoryCache;
-use Qossmic\Deptrac\Core\Ast\Parser\Extractors\ClassConstantExtractor;
-use Qossmic\Deptrac\Core\Ast\Parser\NikicPhpParser\NikicPhpParser;
+use Qossmic\Deptrac\DefaultBehavior\Ast\Extractors\ClassConstantExtractor;
+use Qossmic\Deptrac\DefaultBehavior\Ast\Parser\NikicPhpParser;
 
 final class ClassConstantExtractorTest extends TestCase
 {

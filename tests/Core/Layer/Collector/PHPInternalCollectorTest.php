@@ -10,7 +10,7 @@ use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeToken;
 use Qossmic\Deptrac\Contract\Ast\AstMap\FunctionReference;
 use Qossmic\Deptrac\Contract\Ast\AstMap\FunctionToken;
 use Qossmic\Deptrac\Contract\Ast\AstMap\TokenReferenceInterface;
-use Qossmic\Deptrac\Core\Layer\Collector\PhpInternalCollector;
+use Qossmic\Deptrac\DefaultBehavior\Layer\PhpInternalCollector;
 
 final class PHPInternalCollectorTest extends TestCase
 {

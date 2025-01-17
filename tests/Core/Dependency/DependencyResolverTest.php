@@ -6,28 +6,34 @@ namespace Tests\Qossmic\Deptrac\Core\Dependency;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
+use Qossmic\Deptrac\Contract\Ast\AstMap\AstInherit;
+use Qossmic\Deptrac\Contract\Ast\AstMap\AstInheritType;
+use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeReference;
+use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeToken;
+use Qossmic\Deptrac\Contract\Ast\AstMap\FileOccurrence;
 use Qossmic\Deptrac\Contract\Config\EmitterType;
+use Qossmic\Deptrac\Contract\Dependency\DependencyInterface;
 use Qossmic\Deptrac\Contract\Dependency\PostEmitEvent;
 use Qossmic\Deptrac\Contract\Dependency\PostFlattenEvent;
 use Qossmic\Deptrac\Contract\Dependency\PreEmitEvent;
 use Qossmic\Deptrac\Contract\Dependency\PreFlattenEvent;
-use Qossmic\Deptrac\Core\Ast\AstMap\AstMap;
+use Qossmic\Deptrac\Core\Ast\AstMap;
+use Qossmic\Deptrac\Core\Dependency\DependencyList;
 use Qossmic\Deptrac\Core\Dependency\DependencyResolver;
-use Qossmic\Deptrac\Core\Dependency\Emitter\ClassDependencyEmitter;
-use Qossmic\Deptrac\Core\Dependency\Emitter\ClassSuperglobalDependencyEmitter;
-use Qossmic\Deptrac\Core\Dependency\Emitter\FileDependencyEmitter;
-use Qossmic\Deptrac\Core\Dependency\Emitter\FunctionDependencyEmitter;
-use Qossmic\Deptrac\Core\Dependency\Emitter\FunctionSuperglobalDependencyEmitter;
-use Qossmic\Deptrac\Core\Dependency\Emitter\UsesDependencyEmitter;
-use Qossmic\Deptrac\Core\Dependency\InheritanceFlattener;
+use Qossmic\Deptrac\Core\Dependency\InheritDependency;
 use Qossmic\Deptrac\Core\Dependency\InvalidEmitterConfigurationException;
+use Qossmic\Deptrac\DefaultBehavior\Dependency\ClassDependencyEmitter;
+use Qossmic\Deptrac\DefaultBehavior\Dependency\ClassSuperglobalDependencyEmitter;
+use Qossmic\Deptrac\DefaultBehavior\Dependency\FileDependencyEmitter;
+use Qossmic\Deptrac\DefaultBehavior\Dependency\FunctionDependencyEmitter;
+use Qossmic\Deptrac\DefaultBehavior\Dependency\FunctionSuperglobalDependencyEmitter;
+use Qossmic\Deptrac\DefaultBehavior\Dependency\UsesDependencyEmitter;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 final class DependencyResolverTest extends TestCase
 {
     private EventDispatcherInterface $dispatcher;
-    private InheritanceFlattener $flattener;
     private ContainerInterface $container;
 
     protected function setUp(): void
@@ -35,8 +41,6 @@ final class DependencyResolverTest extends TestCase
         parent::setUp();
 
         $this->dispatcher = $this->createMock(EventDispatcherInterface::class);
-
-        $this->flattener = $this->createMock(InheritanceFlattener::class);
 
         $this->container = new ContainerBuilder();
         $this->container->set(EmitterType::CLASS_TOKEN->value, new ClassDependencyEmitter());
@@ -59,14 +63,12 @@ final class DependencyResolverTest extends TestCase
             new PreFlattenEvent(),
             new PostFlattenEvent()
         );
-        $this->flattener->expects(self::once())->method('flattenDependencies');
 
         $resolver = new DependencyResolver(
             ['types' => [
                 EmitterType::CLASS_TOKEN->value,
                 EmitterType::USE_TOKEN->value,
             ]],
-            $this->flattener,
             $this->container,
             $this->dispatcher
         );
@@ -84,11 +86,9 @@ final class DependencyResolverTest extends TestCase
             new PreFlattenEvent(),
             new PostFlattenEvent()
         );
-        $this->flattener->expects(self::once())->method('flattenDependencies');
 
         $resolver = new DependencyResolver(
             ['types' => [EmitterType::FUNCTION_TOKEN->value]],
-            $this->flattener,
             $this->container,
             $this->dispatcher
         );
@@ -101,11 +101,9 @@ final class DependencyResolverTest extends TestCase
         $astMap = new AstMap([]);
 
         $this->dispatcher->expects(self::never())->method('dispatch');
-        $this->flattener->expects(self::never())->method('flattenDependencies');
 
         $resolver = new DependencyResolver(
             ['types' => ['invalid']],
-            $this->flattener,
             $this->container,
             $this->dispatcher
         );
@@ -113,5 +111,83 @@ final class DependencyResolverTest extends TestCase
         $this->expectException(InvalidEmitterConfigurationException::class);
 
         $resolver->resolve($astMap);
+    }
+
+    public function testFlattenDependencies(): void
+    {
+        $astMap = $this->createMock(AstMap::class);
+
+        $astMap->method('getClassLikeReferences')->willReturn([
+            $this->getAstClassReference('classA'),
+            $this->getAstClassReference('classB'),
+            $this->getAstClassReference('classBaum'),
+            $this->getAstClassReference('classWeihnachtsbaum'),
+            $this->getAstClassReference('classGeschmückterWeihnachtsbaum'),
+        ]);
+
+        $dependencyResult = new DependencyList();
+        $dependencyResult->addDependency($this->getDependency('classA'));
+        $dependencyResult->addDependency($this->getDependency('classB'));
+        $dependencyResult->addDependency($this->getDependency('classBaum'));
+        $dependencyResult->addDependency($this->getDependency('classWeihnachtsbaumsA'));
+
+        $astMap->method('getClassInherits')->willReturnOnConsecutiveCalls(
+            // classA
+            [],
+            // classB
+            [],
+            // classBaum,
+            [],
+            // classWeihnachtsbaum
+            [
+                new AstInherit(
+                    ClassLikeToken::fromFQCN('classBaum'), new FileOccurrence('classWeihnachtsbaum.php', 3),
+                    AstInheritType::USES
+                ),
+            ],
+            // classGeschmückterWeihnachtsbaum
+            [
+                (new AstInherit(
+                    ClassLikeToken::fromFQCN('classBaum'), new FileOccurrence('classGeschmückterWeihnachtsbaum.php', 3),
+                    AstInheritType::EXTENDS
+                ))
+                    ->replacePath([
+                        new AstInherit(
+                            ClassLikeToken::fromFQCN('classWeihnachtsbaum'),
+                            new FileOccurrence('classBaum.php', 3),
+                            AstInheritType::USES
+                        ),
+                    ]),
+            ]
+        );
+
+        DependencyResolver::flattenDependencies($astMap, $dependencyResult);
+
+        $inheritDeps = array_filter(
+            $dependencyResult->getDependenciesAndInheritDependencies(),
+            static function ($v) {
+                return $v instanceof InheritDependency;
+            }
+        );
+
+        self::assertCount(2, $inheritDeps);
+    }
+
+    private function getAstClassReference($className)
+    {
+        $classLikeToken = ClassLikeToken::fromFQCN($className);
+        $astClass = new ClassLikeReference($classLikeToken);
+        self::assertSame($classLikeToken, $astClass->getToken());
+
+        return $astClass;
+    }
+
+    private function getDependency($className)
+    {
+        $dep = $this->createMock(DependencyInterface::class);
+        $dep->method('getDepender')->willReturn(ClassLikeToken::fromFQCN($className));
+        $dep->method('getDependent')->willReturn(ClassLikeToken::fromFQCN($className.'_b'));
+
+        return $dep;
     }
 }

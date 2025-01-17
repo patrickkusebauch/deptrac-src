@@ -14,7 +14,7 @@ use Qossmic\Deptrac\Contract\Ast\AstMap\SuperGlobalToken;
 use Qossmic\Deptrac\Contract\Ast\AstMap\TokenInterface;
 use Qossmic\Deptrac\Contract\Ast\AstMap\TokenReferenceInterface;
 use Qossmic\Deptrac\Contract\Ast\AstMap\VariableReference;
-use Qossmic\Deptrac\Core\Ast\AstMap\AstMap;
+use Qossmic\Deptrac\Core\Ast\AstMap;
 
 class TokenResolver
 {

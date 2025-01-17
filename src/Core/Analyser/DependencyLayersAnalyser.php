@@ -8,17 +8,17 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 use Qossmic\Deptrac\Contract\Analyser\AnalysisResult;
 use Qossmic\Deptrac\Contract\Analyser\PostProcessEvent;
 use Qossmic\Deptrac\Contract\Analyser\ProcessEvent;
+use Qossmic\Deptrac\Contract\Ast\AstException;
 use Qossmic\Deptrac\Contract\Ast\CouldNotParseFileException;
 use Qossmic\Deptrac\Contract\Layer\InvalidCollectorDefinitionException;
 use Qossmic\Deptrac\Contract\Layer\InvalidLayerDefinitionException;
+use Qossmic\Deptrac\Contract\Layer\LayerResolverInterface;
 use Qossmic\Deptrac\Contract\Result\Warning;
-use Qossmic\Deptrac\Core\Ast\AstException;
 use Qossmic\Deptrac\Core\Ast\AstMapExtractor;
 use Qossmic\Deptrac\Core\Dependency\DependencyResolver;
 use Qossmic\Deptrac\Core\Dependency\InvalidEmitterConfigurationException;
 use Qossmic\Deptrac\Core\Dependency\TokenResolver;
 use Qossmic\Deptrac\Core\Dependency\UnrecognizedTokenException;
-use Qossmic\Deptrac\Core\Layer\LayerResolverInterface;
 
 use function count;
 

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Qossmic\Deptrac\Core\Dependency;
 
+use Qossmic\Deptrac\Contract\Dependency\DependencyEmitterInterface;
 use Qossmic\Deptrac\Contract\ExceptionInterface;
-use Qossmic\Deptrac\Core\Dependency\Emitter\DependencyEmitterInterface;
 use RuntimeException;
 
 class InvalidEmitterConfigurationException extends RuntimeException implements ExceptionInterface

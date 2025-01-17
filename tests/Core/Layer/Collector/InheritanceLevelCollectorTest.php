@@ -8,9 +8,9 @@ use PHPUnit\Framework\TestCase;
 use Qossmic\Deptrac\Contract\Ast\AstMap\AstInherit;
 use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeReference;
 use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeToken;
-use Qossmic\Deptrac\Core\Ast\AstMap\AstMap;
+use Qossmic\Deptrac\Core\Ast\AstMap;
 use Qossmic\Deptrac\Core\Ast\AstMapExtractor;
-use Qossmic\Deptrac\Core\Layer\Collector\InheritanceLevelCollector;
+use Qossmic\Deptrac\DefaultBehavior\Layer\InheritanceLevelCollector;
 
 final class InheritanceLevelCollectorTest extends TestCase
 {

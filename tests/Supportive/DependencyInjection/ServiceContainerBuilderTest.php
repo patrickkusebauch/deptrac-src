@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Qossmic\Deptrac\Supportive\DependencyInjection;
 
 use PHPUnit\Framework\TestCase;
-use Qossmic\Deptrac\Core\Ast\Parser\NikicPhpParser\NikicPhpParser;
+use Qossmic\Deptrac\DefaultBehavior\Ast\Parser\NikicPhpParser;
 use Qossmic\Deptrac\Supportive\DependencyInjection\ServiceContainerBuilder;
 
 final class ServiceContainerBuilderTest extends TestCase

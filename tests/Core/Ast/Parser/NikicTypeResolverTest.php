@@ -10,7 +10,7 @@ use PHPStan\PhpDocParser\Parser\TokenIterator;
 use PHPStan\PhpDocParser\Parser\TypeParser;
 use PHPUnit\Framework\TestCase;
 use Qossmic\Deptrac\Contract\Ast\TypeScope;
-use Qossmic\Deptrac\Core\Ast\Parser\NikicPhpParser\NikicTypeResolver;
+use Qossmic\Deptrac\Core\Ast\Parser\NikicTypeResolver;
 
 final class NikicTypeResolverTest extends TestCase
 {

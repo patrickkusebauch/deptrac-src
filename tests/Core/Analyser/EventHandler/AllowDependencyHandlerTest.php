@@ -6,7 +6,7 @@ namespace Tests\Qossmic\Deptrac\Core\Analyser\EventHandler;
 
 use PHPUnit\Framework\TestCase;
 use Qossmic\Deptrac\Contract\Analyser\ProcessEvent;
-use Qossmic\Deptrac\Core\Analyser\EventHandler\AllowDependencyHandler;
+use Qossmic\Deptrac\DefaultBehavior\Analyser\AllowDependencyHandler;
 
 class AllowDependencyHandlerTest extends TestCase
 {

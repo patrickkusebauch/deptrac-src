@@ -14,10 +14,10 @@ use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeType;
 use Qossmic\Deptrac\Contract\Ast\AstMap\DependencyContext;
 use Qossmic\Deptrac\Contract\Ast\AstMap\DependencyType;
 use Qossmic\Deptrac\Contract\Ast\AstMap\FileOccurrence;
-use Qossmic\Deptrac\Contract\Layer\LayerProvider;
 use Qossmic\Deptrac\Contract\Result\Violation;
-use Qossmic\Deptrac\Core\Analyser\EventHandler\DependsOnPrivateLayer;
-use Qossmic\Deptrac\Core\Dependency\Dependency;
+use Qossmic\Deptrac\Core\Layer\LayerProvider;
+use Qossmic\Deptrac\DefaultBehavior\Analyser\DependsOnPrivateLayer;
+use Qossmic\Deptrac\DefaultBehavior\Dependency\Helpers\Dependency;
 use Qossmic\Deptrac\Supportive\OutputFormatter\YamlBaselineMapper;
 
 final class DependsOnPrivateLayerTest extends TestCase

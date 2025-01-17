@@ -13,7 +13,7 @@ use Qossmic\Deptrac\Contract\Ast\AstMap\FunctionReference;
 use Qossmic\Deptrac\Contract\Ast\AstMap\FunctionToken;
 use Qossmic\Deptrac\Contract\Ast\AstMap\SuperGlobalToken;
 use Qossmic\Deptrac\Contract\Ast\AstMap\VariableReference;
-use Qossmic\Deptrac\Core\Ast\AstMap\AstMap;
+use Qossmic\Deptrac\Core\Ast\AstMap;
 use Qossmic\Deptrac\Core\Dependency\TokenResolver;
 
 final class TokenResolverTest extends TestCase

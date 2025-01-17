@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Qossmic\Deptrac\Core\Ast;
 
-use Qossmic\Deptrac\Core\Ast\AstMap\AstMap;
+use Qossmic\Deptrac\Contract\Ast\AstException;
+use Qossmic\Deptrac\Contract\Ast\AstMapExtractorInterface;
 use Qossmic\Deptrac\Core\InputCollector\InputCollectorInterface;
 use Qossmic\Deptrac\Core\InputCollector\InputException;
 
-class AstMapExtractor
+class AstMapExtractor implements AstMapExtractorInterface
 {
     private ?AstMap $astMapCache = null;
 

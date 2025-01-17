@@ -6,7 +6,7 @@ namespace Tests\Qossmic\Deptrac\Core\Analyser\EventHandler;
 
 use PHPUnit\Framework\TestCase;
 use Qossmic\Deptrac\Contract\Analyser\PostProcessEvent;
-use Qossmic\Deptrac\Core\Analyser\EventHandler\UnmatchedSkippedViolations;
+use Qossmic\Deptrac\DefaultBehavior\Analyser\UnmatchedSkippedViolations;
 
 class UnmatchedSkippedViolationsTest extends TestCase
 {
@@ -16,6 +16,6 @@ class UnmatchedSkippedViolationsTest extends TestCase
 
         self::assertCount(1, $subscribedEvents);
         self::assertArrayHasKey(PostProcessEvent::class, $subscribedEvents);
-        self::assertSame(['handleUnmatchedSkipped'], $subscribedEvents[PostProcessEvent::class]);
+        self::assertSame(['invoke'], $subscribedEvents[PostProcessEvent::class]);
     }
 }

@@ -12,9 +12,9 @@ use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeReference;
 use Qossmic\Deptrac\Contract\Ast\AstMap\DependencyToken;
 use Qossmic\Deptrac\Contract\Ast\ParserInterface;
 use Qossmic\Deptrac\Core\Ast\Parser\Cache\AstFileReferenceInMemoryCache;
-use Qossmic\Deptrac\Core\Ast\Parser\Extractors\FunctionLikeExtractor;
-use Qossmic\Deptrac\Core\Ast\Parser\NikicPhpParser\NikicPhpParser;
-use Qossmic\Deptrac\Core\Ast\Parser\NikicPhpParser\NikicTypeResolver;
+use Qossmic\Deptrac\Core\Ast\Parser\NikicTypeResolver;
+use Qossmic\Deptrac\DefaultBehavior\Ast\Extractors\FunctionLikeExtractor;
+use Qossmic\Deptrac\DefaultBehavior\Ast\Parser\NikicPhpParser;
 
 final class FunctionLikeExtractorTest extends TestCase
 {

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tests\Qossmic\Deptrac\Supportive\Console\Command;
 
 use PHPUnit\Framework\TestCase;
+use Qossmic\Deptrac\DefaultBehavior\OutputFormatter\GithubActionsOutputFormatter;
 use Qossmic\Deptrac\Supportive\Console\Command\AnalyseCommand;
-use Qossmic\Deptrac\Supportive\OutputFormatter\GithubActionsOutputFormatter;
 
 class AnalyseCommandTest extends TestCase
 {
