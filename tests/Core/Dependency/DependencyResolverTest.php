@@ -53,6 +53,8 @@ final class DependencyResolverTest extends TestCase
 
     public function testResolveWithDefaultEmitters(): void
     {
+        $this->expectNotToPerformAssertions();
+
         $astMap = new AstMap([]);
 
         $this->dispatcher->method('dispatch')->willReturnOnConsecutiveCalls(
@@ -78,8 +80,10 @@ final class DependencyResolverTest extends TestCase
 
     public function testResolveWithCustomEmitters(): void
     {
-        $astMap = new AstMap([]);
+        $this->expectNotToPerformAssertions();
 
+        $astMap = new AstMap([]);
+        
         $this->dispatcher->method('dispatch')->willReturnOnConsecutiveCalls(
             new PreEmitEvent('FunctionDependencyEmitter'),
             new PostEmitEvent(),
