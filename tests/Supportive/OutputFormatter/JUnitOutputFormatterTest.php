@@ -16,6 +16,7 @@ use Qossmic\Deptrac\Contract\OutputFormatter\OutputFormatterInput;
 use Qossmic\Deptrac\Contract\Result\Error;
 use Qossmic\Deptrac\Contract\Result\OutputResult;
 use Qossmic\Deptrac\Contract\Result\SkippedViolation;
+use Qossmic\Deptrac\Contract\Result\Uncovered;
 use Qossmic\Deptrac\Contract\Result\Violation;
 use Qossmic\Deptrac\Core\Dependency\InheritDependency;
 use Qossmic\Deptrac\DefaultBehavior\Dependency\Helpers\Dependency;
@@ -159,6 +160,16 @@ final class JUnitOutputFormatterTest extends TestCase
                 ),
             ],
             'expected-junit-report-with-skipped-violations.xml',
+        ];
+
+        yield [
+            [
+                new Uncovered(
+                    new Dependency($originalA, $originalB, new DependencyContext(new FileOccurrence('foo.php', 12), DependencyType::PARAMETER)),
+                    'test'
+                ),
+            ],
+            'expected-junit-report-with-uncovered.xml',
         ];
     }
 
