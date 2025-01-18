@@ -5,12 +5,18 @@ declare(strict_types=1);
 namespace Tests\Qossmic\Deptrac\Core\Layer\Collector;
 
 use PHPUnit\Framework\TestCase;
+use Qossmic\Deptrac\Contract\Ast\AstException;
 use Qossmic\Deptrac\Contract\Ast\AstMap\AstInherit;
 use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeReference;
 use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeToken;
+use Qossmic\Deptrac\Contract\Ast\AstMap\SuperGlobalToken;
+use Qossmic\Deptrac\Contract\Ast\AstMap\VariableReference;
+use Qossmic\Deptrac\Contract\Ast\CouldNotParseFileException;
+use Qossmic\Deptrac\Contract\Layer\InvalidCollectorDefinitionException;
 use Qossmic\Deptrac\Core\Ast\AstMap;
 use Qossmic\Deptrac\Core\Ast\AstMapExtractor;
 use Qossmic\Deptrac\DefaultBehavior\Layer\InheritanceLevelCollector;
+use RuntimeException;
 
 final class InheritanceLevelCollectorTest extends TestCase
 {
@@ -54,5 +60,45 @@ final class InheritanceLevelCollectorTest extends TestCase
         );
 
         self::assertSame($expected, $actual);
+    }
+
+    public function testInvalidRegexParam(): void
+    {
+        $this->expectException(InvalidCollectorDefinitionException::class);
+
+        $extractor = $this->createMock(AstMapExtractor::class);
+
+        (new InheritanceLevelCollector($extractor))->satisfy(
+            ['regex' => '/'],
+            new ClassLikeReference(ClassLikeToken::fromFQCN('Foo')),
+        );
+    }
+
+    public function testWrongTokenTypeDoesNotSatisfy(): void
+    {
+        $extractor = $this->createMock(AstMapExtractor::class);
+
+        $actual = (new InheritanceLevelCollector($extractor))->satisfy(
+            ['value' => '/^Foo\\\\Bar$/i'],
+            new VariableReference(SuperGlobalToken::GET)
+        );
+
+        self::assertFalse($actual);
+    }
+
+    public function testFailedAstExtraction(): void
+    {
+        $this->expectException(CouldNotParseFileException::class);
+
+        $extractor = $this->createMock(AstMapExtractor::class);
+        $extractor
+            ->method('extract')
+            ->willThrowException(AstException::couldNotCollectFiles(new RuntimeException('')))
+        ;
+
+        (new InheritanceLevelCollector($extractor))->satisfy(
+            ['value' => 'App\Bar'],
+            new ClassLikeReference(ClassLikeToken::fromFQCN('Foo')),
+        );
     }
 }

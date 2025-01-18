@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Qossmic\Deptrac\Core\Layer\Collector;
 
 use PHPUnit\Framework\TestCase;
+use Qossmic\Deptrac\Contract\Layer\InvalidCollectorDefinitionException;
 use Qossmic\Deptrac\DefaultBehavior\Ast\Parser\Helpers\FileReferenceBuilder;
 use Qossmic\Deptrac\DefaultBehavior\Layer\GlobCollector;
 
@@ -43,5 +44,19 @@ final class GlobCollectorTest extends TestCase
         );
 
         self::assertSame($expected, $actual);
+    }
+
+    public function testWrongRegexParam(): void
+    {
+        $this->expectException(InvalidCollectorDefinitionException::class);
+
+        $fileReferenceBuilder = FileReferenceBuilder::create('foo/layer1/bar.php');
+        $fileReferenceBuilder->newClassLike('Test', [], []);
+        $fileReference = $fileReferenceBuilder->build();
+
+        $this->collector->satisfy(
+            ['Foo' => 'a'],
+            $fileReference->classLikeReferences[0],
+        );
     }
 }

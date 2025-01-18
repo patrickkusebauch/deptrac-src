@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Tests\Qossmic\Deptrac\Core\Layer\Collector;
 
 use PHPUnit\Framework\TestCase;
+use Qossmic\Deptrac\Contract\Ast\AstMap\FunctionReference;
+use Qossmic\Deptrac\Contract\Ast\AstMap\FunctionToken;
 use Qossmic\Deptrac\Contract\Ast\AstMap\SuperGlobalToken;
 use Qossmic\Deptrac\Contract\Ast\AstMap\VariableReference;
 use Qossmic\Deptrac\Contract\Layer\InvalidCollectorDefinitionException;
@@ -48,5 +50,17 @@ final class SuperglobalCollectorTest extends TestCase
             ['Foo' => 'a'],
             new VariableReference(SuperGlobalToken::from('_POST'))
         );
+    }
+
+    public function testNonVariableReferenceDoesNotSatisfy(): void
+    {
+        $astClassReference = new FunctionReference(FunctionToken::fromFQCN('foo'));
+
+        $actual = $this->collector->satisfy(
+            ['value' => 'abc'],
+            $astClassReference,
+        );
+
+        self::assertFalse($actual);
     }
 }

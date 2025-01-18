@@ -5,8 +5,13 @@ declare(strict_types=1);
 namespace Tests\Qossmic\Deptrac\Core\Layer\Collector;
 
 use PHPUnit\Framework\TestCase;
+use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeReference;
 use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeToken;
+use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeType;
 use Qossmic\Deptrac\Contract\Ast\AstMap\DependencyType;
+use Qossmic\Deptrac\Contract\Ast\AstMap\SuperGlobalToken;
+use Qossmic\Deptrac\Contract\Ast\AstMap\VariableReference;
+use Qossmic\Deptrac\Contract\Layer\InvalidCollectorDefinitionException;
 use Qossmic\Deptrac\DefaultBehavior\Ast\Parser\Helpers\FileReferenceBuilder;
 use Qossmic\Deptrac\DefaultBehavior\Layer\AttributeCollector;
 
@@ -44,6 +49,7 @@ final class AttributeCollectorTest extends TestCase
     {
         $classLikeReference = FileReferenceBuilder::create('Foo.php')
             ->newClass('App\Foo', [], [])
+            ->dependency(ClassLikeToken::fromFQCN('App\MyException'), 1, DependencyType::THROW)
             ->dependency(ClassLikeToken::fromFQCN('App\MyAttribute'), 2, DependencyType::ATTRIBUTE)
             ->dependency(ClassLikeToken::fromFQCN('MyAttribute'), 3, DependencyType::ATTRIBUTE)
             ->build()
@@ -51,5 +57,25 @@ final class AttributeCollectorTest extends TestCase
         $actual = $this->collector->satisfy($config, $classLikeReference);
 
         self::assertSame($expected, $actual);
+    }
+
+    public function testWrongRegexParam(): void
+    {
+        $this->expectException(InvalidCollectorDefinitionException::class);
+
+        $this->collector->satisfy(
+            ['Foo' => 'a'],
+            new ClassLikeReference(ClassLikeToken::fromFQCN('Foo'), ClassLikeType::TYPE_CLASS),
+        );
+    }
+
+    public function testWrongTokenTypeDoesNotSatisfy(): void
+    {
+        $actual = $this->collector->satisfy(
+            ['Foo' => 'a'],
+            new VariableReference(SuperGlobalToken::GET)
+        );
+
+        self::assertFalse($actual);
     }
 }

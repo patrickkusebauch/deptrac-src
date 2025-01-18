@@ -8,6 +8,8 @@ use PHPUnit\Framework\TestCase;
 use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeReference;
 use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeToken;
 use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeType;
+use Qossmic\Deptrac\Contract\Ast\AstMap\SuperGlobalToken;
+use Qossmic\Deptrac\Contract\Ast\AstMap\VariableReference;
 use Qossmic\Deptrac\Contract\Config\Collector\TagValueRegexConfig;
 use Qossmic\Deptrac\Contract\Layer\InvalidCollectorDefinitionException;
 use Qossmic\Deptrac\DefaultBehavior\Layer\TagValueRegexCollector;
@@ -119,5 +121,15 @@ final class TagValueRegexCollectorTest extends TestCase
             $config,
             new ClassLikeReference(ClassLikeToken::fromFQCN('Foo'))
         );
+    }
+
+    public function testNonTagTokenDoesNotSatisfy(): void
+    {
+        $actual = $this->collector->satisfy(
+            TagValueRegexConfig::create('@foo')->toArray(),
+            new VariableReference(SuperGlobalToken::GET)
+        );
+
+        self::assertFalse($actual);
     }
 }

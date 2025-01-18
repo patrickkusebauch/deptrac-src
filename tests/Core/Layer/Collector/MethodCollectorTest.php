@@ -7,6 +7,8 @@ namespace Tests\Qossmic\Deptrac\Core\Layer\Collector;
 use PHPUnit\Framework\TestCase;
 use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeReference;
 use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeToken;
+use Qossmic\Deptrac\Contract\Ast\AstMap\FunctionReference;
+use Qossmic\Deptrac\Contract\Ast\AstMap\FunctionToken;
 use Qossmic\Deptrac\Contract\Layer\InvalidCollectorDefinitionException;
 use Qossmic\Deptrac\DefaultBehavior\Ast\Parser\NikicPhpParser;
 use Qossmic\Deptrac\DefaultBehavior\Layer\MethodCollector;
@@ -84,6 +86,18 @@ final class MethodCollectorTest extends TestCase
             ->with($astClassReference)
             ->willReturn([])
         ;
+
+        $actual = $this->collector->satisfy(
+            ['value' => 'abc'],
+            $astClassReference,
+        );
+
+        self::assertFalse($actual);
+    }
+
+    public function testNonClassReferenceDoesNotSatisfy(): void
+    {
+        $astClassReference = new FunctionReference(FunctionToken::fromFQCN('foo'));
 
         $actual = $this->collector->satisfy(
             ['value' => 'abc'],

@@ -7,6 +7,8 @@ namespace Tests\Qossmic\Deptrac\Core\Layer\Collector;
 use PHPUnit\Framework\TestCase;
 use Qossmic\Deptrac\Contract\Ast\AstMap\FunctionReference;
 use Qossmic\Deptrac\Contract\Ast\AstMap\FunctionToken;
+use Qossmic\Deptrac\Contract\Ast\AstMap\SuperGlobalToken;
+use Qossmic\Deptrac\Contract\Ast\AstMap\VariableReference;
 use Qossmic\Deptrac\Contract\Layer\InvalidCollectorDefinitionException;
 use Qossmic\Deptrac\DefaultBehavior\Layer\FunctionNameCollector;
 
@@ -48,5 +50,15 @@ final class FunctionNameCollectorTest extends TestCase
             ['Foo' => 'a'],
             new FunctionReference(FunctionToken::fromFQCN('Foo')),
         );
+    }
+
+    public function testWrongTokenTypeDoesNotSatisfy(): void
+    {
+        $actual = $this->collector->satisfy(
+            ['value' => 'a'],
+            new VariableReference(SuperGlobalToken::GET)
+        );
+
+        self::assertFalse($actual);
     }
 }

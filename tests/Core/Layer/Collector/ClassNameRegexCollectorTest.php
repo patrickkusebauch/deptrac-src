@@ -7,6 +7,8 @@ namespace Tests\Qossmic\Deptrac\Core\Layer\Collector;
 use PHPUnit\Framework\TestCase;
 use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeReference;
 use Qossmic\Deptrac\Contract\Ast\AstMap\ClassLikeToken;
+use Qossmic\Deptrac\Contract\Ast\AstMap\SuperGlobalToken;
+use Qossmic\Deptrac\Contract\Ast\AstMap\VariableReference;
 use Qossmic\Deptrac\Contract\Layer\InvalidCollectorDefinitionException;
 use Qossmic\Deptrac\DefaultBehavior\Layer\ClassNameRegexCollector;
 
@@ -58,5 +60,15 @@ final class ClassNameRegexCollectorTest extends TestCase
             ['regex' => '/'],
             new ClassLikeReference(ClassLikeToken::fromFQCN('Foo')),
         );
+    }
+
+    public function testWrongTokenTypeDoesNotSatisfy(): void
+    {
+        $actual = $this->collector->satisfy(
+            ['value' => '/^Foo\\\\Bar$/i'],
+            new VariableReference(SuperGlobalToken::GET)
+        );
+
+        self::assertFalse($actual);
     }
 }
